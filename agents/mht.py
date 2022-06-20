@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""File handler for mime hypertext "mht" "mhtml" content"""
+"""File agent for mime hypertext "mht" "mhtml" content"""
 import os.path
 import email
 import tempfile
 import re
 import chardet
 
-class mht_handler():
+class mht_agent():
     def __init__(self, filename: str):
         """ Unpack .mht file which contains MIME like email """
         self.tempdir = tempfile.TemporaryDirectory()

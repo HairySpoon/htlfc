@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bridge between input handlers and the HTML Element Tree"""
+"""Bridge between file agents and the HTML Element Tree"""
 
 import os
 
@@ -7,7 +7,7 @@ from merger.xmltree import ET
 
 def convert(source):
     """Convert source into xml element tree and supervise conversion
-    source = file handler object
+    source = file agent object
     """
     # Create Element Tree object
     indexhtml = source.indexfile

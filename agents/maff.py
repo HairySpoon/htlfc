@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""File handler for Mozilla Archive Format"""
+"""File agent for Mozilla Archive Format"""
 import os
 import tempfile
 import zipfile
 
-class maff_handler():
+class maff_agent():
 
     def __init__(self, filename: str):
         """ Unpack maff - which is a zip file """

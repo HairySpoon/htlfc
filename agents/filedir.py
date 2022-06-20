@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""File handler for file+directory content"""
+"""File agent for file+directory content"""
 import os.path
 
-class filedir_handler():
+class filedir_agent():
 
     def __init__(self, filename: str):
 

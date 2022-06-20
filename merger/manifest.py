@@ -8,7 +8,7 @@ import urllib.parse
 def make(source):
     """Use source.walk() to identify datapath and filepath
     populate source.manifest and source.frames
-    source:object - created by file handler in agents
+    source:object - created by file agent
     """
     source.manifest = dict() # key=datapath value=filepath
 

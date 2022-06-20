@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""Load hypertext file by calling the applicable handler"""
+"""Load hypertext file by calling the applicable file agent"""
 import os.path
 import tempfile
 
-# Handlers for each file type container
-from agents.mht import mht_handler
-from agents.maff import maff_handler
-from agents.war import war_handler
-from agents.filedir import filedir_handler
+# Agents for each file type container
+from agents.mht import mht_agent
+from agents.maff import maff_agent
+from agents.war import war_agent
+from agents.filedir import filedir_agent
 from merger import manifest
 
 # Dictionary used by both unpack() and htlfc.__main__
 mapping = {
-    ".maff"    : maff_handler,
-    ".mht"     : mht_handler,
-    ".mhtml"   : mht_handler,
-    ".war"     : war_handler,
-    ".html"    : filedir_handler,
-    ".shtml"   : filedir_handler }
+    ".maff"    : maff_agent,
+    ".mht"     : mht_agent,
+    ".mhtml"   : mht_agent,
+    ".war"     : war_agent,
+    ".html"    : filedir_agent,
+    ".shtml"   : filedir_agent }
 
 def unpack(filename):
     """Open the archive container return a 'source' object"""
@@ -27,8 +27,8 @@ def unpack(filename):
         print("Input file extension not understood... aborting")
         return None
     try:
-        handler = mapping.get(ext, lambda: 'nothing')
-        source = handler(filename)
+        agent = mapping.get(ext, lambda: 'nothing')
+        source = agent(filename)
     except TypeError as err:
         print(f"Input rejected: {err}")
         return None

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""File handler for web archive(Konqueror)"""
+"""File agent for web archive(Konqueror)"""
 import os
 import tarfile
 import tempfile
 
-class war_handler():
+class war_agent():
     def __init__(self, filename: str):
         """ Unpack .war file which is a tar archive """
 

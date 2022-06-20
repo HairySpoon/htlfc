@@ -11,11 +11,11 @@ from merger import convert
 
 def launch_browser(source,filename):
     """Launch webbrowser with either source or filename
-    source:object - as loaded by handler agent
+    source:object - as loaded by file agent
     filename:str - full path to index.html or equivalent
     ** Only one is required, the other must be None **
     """
-    # Applicable to mht handler for browser support
+    # Applicable to mht agent for browser support
     if hasattr(source,"browser_fix"):
         source.browser_fix()
 
