@@ -173,13 +173,16 @@ class ET():
         # Looking for level 1 iframes...
         for element1 in tree.findall(tag):
             datapath1 = element1.get('src')
+            if datapath1 is None: continue
             target1 = self.frames[datapath1]
-            for filepath1,etree1 in self.forest[1:]: # exclude [0] which is primary etree
+            # ignore [0] because it is the primary etree...
+            for filepath1,etree1 in self.forest[1:]:
                 if filepath1 == target1:
 
                     # Looking for level 2 iframes...
                     for element2 in etree1.findall(tag):
                         datapath2 = element2.get('src')
+                        if datapath2 is None: continue
                         target2 = self.frames[datapath2]
                         for filepath2,etree2 in self.forest[1:]:
                             if filepath2 == target2:
@@ -187,6 +190,7 @@ class ET():
                                 # Looking for level 3 iframes...
                                 for element3 in etree2.findall(tag):
                                     datapath3= element3.get('src')
+                                    if datapath3 is None: continue
                                     target3 = self.frames[datapath3]
                                     for filepath3,etree3 in self.forest[1:]:
                                         if filepath3 == target3:
@@ -197,7 +201,9 @@ class ET():
                                                         encoding = self.encoding,
                                                         method = 'html')
                                 frame_text2 = frame_text2.decode(self.encoding)
-                                # Merge into tree - replace src="..path.." with srcdoc='..inline..' (single quotes)
+                                # Merge into tree
+                                # replace src="..path.."
+                                # with    srcdoc='..inline..' (single quotes)
                                 del element2.attrib['src']
                                 element2.set('srcdoc',frame_text2)
 
@@ -206,7 +212,9 @@ class ET():
                                             encoding = self.encoding,
                                             method = 'html')
                     frame_text1 = frame_text1.decode(self.encoding)
-                    # Merge into tree - replace src="..path.." with srcdoc="..inline.." (double quotes)
+                    # Merge into tree
+                    # replace src="..path.."
+                    # with srcdoc="..inline.." (double quotes)
                     del element1.attrib['src']
                     element1.set('srcdoc',frame_text1)
 
