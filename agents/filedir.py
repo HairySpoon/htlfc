@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """File agent for file+directory content"""
-import os.path
+import os
+import shutil
 
 class filedir_agent():
 
     def __init__(self, filename: str):
-
+        self.filename = filename
         self.indexfile = filename # required for browser()
         self.stem,self.basename = os.path.split(filename)
         files_dir = os.path.splitext(self.basename)[0]+'_files'
@@ -24,3 +25,13 @@ class filedir_agent():
         for dirpath, dirx, files in os.walk(self.rootpath):
             yield (dirpath, dirx, files)
         return
+
+    def delete(self):
+        """Delete original file plus the _files directory"""
+        os.remove(self.filename)
+        shutil.rmtree(self.rootpath)
+        return
+
+    def rename(self,from_name):
+        """Rename converted .html back to self.filename"""
+        os.rename(from_name,self.filename)

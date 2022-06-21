@@ -28,6 +28,7 @@ def converter(frame):
              i += 1
         entOutfile.delete(0,tk.END)
         entOutfile.insert(tk.END, filename)
+        return
 
     lb2 = ttk.Label(frame, text="Convert to:")
     lb2.grid(row=2, column=1, sticky='E', padx=5, pady=5, ipadx=5, ipady=5)
@@ -42,37 +43,44 @@ def converter(frame):
     ckb2.grid(row=4, column=2, sticky='W')
 
     def conversion():
+        """Convert the file pointed to by window.filename
+        return@success = source object
+        return@failure = None
+        """
         filepath = window.filename
         st = os.stat(filepath) # see below, preserve timestamp
         source = loader.unpack(filepath)
         if source is None:
             messagebox.showerror('Error',f"Unable to unpack file {name}")
             btn2.config(state=DISABLED)
+            return None
         try:
             target = convert.convert(source) # conversion
         except:
             messagebox.showerror('Error',"Conversion failed.")
-            return False
+            return None
         try:
             outfile = entOutfile.get()
             with open(outfile,'w') as fp:
                 target.write_file(fp)
         except:
             messagebox.showerror('Error',"Unable to write output file.")
-            return False
+            return None
         if keepmtime.get() is True: # preserve timestamp
             os.utime(outfile ,(st.st_atime, st.st_mtime))
-        return True
+        return source
 
     def button2():
-        result = conversion()
-        if result is True:
+        source = conversion()
+        if source is not None:
             if deletefile.get() is True:
-                filepath = window.filename
-                os.remove(filepath)
+                source.delete()
                 deletefile.set(False)
-        entOutfile.delete(0,tk.END)
-        btn2.config(state=tk.DISABLED)
+                if hasattr(source,"rename"):
+                    oldname = entOutfile.get()
+                    source.rename(oldname)
+        window.filename = None
+        window.global_refresh()
         return
 
     btn2 = ttk.Button(frame, state=tk.DISABLED

@@ -10,10 +10,11 @@ class maff_agent():
         """ Unpack maff - which is a zip file """
         self.tempdir = tempfile.TemporaryDirectory()
         tempdirpath = self.tempdir.name
+        self.filename = filename
 
         # Validation
         try:
-            zip_ref = zipfile.ZipFile(filename, 'r')
+            zip_ref = zipfile.ZipFile(self.filename, 'r')
         except:
             raise TypeError("File apparently not zip format.")
         try:
@@ -54,3 +55,7 @@ class maff_agent():
             yield (dirpath, dirx, files)
         return
 
+    def delete(self):
+        """Delete original file"""
+        os.remove(self.filename)
+        return

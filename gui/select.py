@@ -14,7 +14,8 @@ def select(frame):
     def button1():
         """Call to dialog 'ask open filename' """
         filename = filedialog.askopenfilename(title="Select file"
-                   ,filetypes = [("legacy files",".mht .mhtml .maff .war")])
+                   ,filetypes = [("legacy files",".mht .mhtml .maff .war")
+                                ,("file+dir",".html")])
         if len(filename) is 0: return
         if os.path.isfile(filename):
             window.filename = filename

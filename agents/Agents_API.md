@@ -16,23 +16,39 @@ Merge tools use this as follows:
 * Objects described by the file map are merged into the tree.
 * Resulting HTML file is written from the tree.
 
-## self.tempdir
+## Methods
+Each file agent must provide the following methods:
+
+* `self.walk()` essentially a wrapper around `os.walk()` but with the addition of any files that reside outside the tree.
+* `self.delete()` to delete the original file.  Plus, for file+dir agent, to also delete the `_files` directory.
+
+Where applicable, a file agent may also provide the following:
+
+* `self.browser_fix()` called after unpack if a browser will be launched.
+* `self.rename(old_name)` called by gui/converter.py only when original is deleted after conversion *and* the new filename had been mangled.
+
+## Properties
+
+These properties are attached to the objects created by the file agents.
+As indicated, not all are created by the agents themselves.
+
+### self.tempdir
 
 When the input file is unpacked, agents will use a temporary holding area on the file system.  Temporary file deletion is assured when exit is called against
  `tempfile.TemporaryDirectory()`.
 
 The Filedir agent does not generate `self.tempdir` because its input is structured around an existing directory.
 
-## self.indexfile
+### self.indexfile
 
 A string pointing to a file in the temporary storage which contains HTML for the web page.  In practice, iframes in the content may introduce additional HTML files, they are represented in self.frames.
 
-## self.frames
+### self.frames
 
 A dictionary of {datapath, filepath} describing every iframe.  See also self.manifest for objects other than frames.
 Not created by agents, refer merger/xmltree/find_iframes(). 
 
-## self.manifest
+### self.manifest
 
 A dictionary of {datapath, filepath} describing every object (except frames) in the content.
 Each key contains a string to be found in the HTML and replaced with the file represented by the dictionary's value.

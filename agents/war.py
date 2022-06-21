@@ -7,11 +7,11 @@ import tempfile
 class war_agent():
     def __init__(self, filename: str):
         """ Unpack .war file which is a tar archive """
-
         self.tempdir = tempfile.TemporaryDirectory()
+        self.filename = filename
         tempdirpath = self.tempdir.name
         try:
-            tarball = tarfile.TarFile.gzopen(filename)
+            tarball = tarfile.TarFile.gzopen(self.filename)
         except:
             raise TypeError("File apparently not tar format.")
         try:
@@ -35,3 +35,7 @@ class war_agent():
             yield (dirpath, dirx, files)
         return
 
+    def delete(self):
+        """Delete original file"""
+        os.remove(self.filename)
+        return

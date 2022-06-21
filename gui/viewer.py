@@ -2,6 +2,7 @@
 """Launch browser with selected file"""
 import os
 import time
+import tempfile
 import webbrowser
 import tkinter as tk
 from tkinter import messagebox
@@ -68,10 +69,10 @@ def viewer(frame):
             btn3.config(state=tk.DISABLED)
         else:
             target = convert.convert(source) # conversion
-            tempfile = os.path.join(source.tempdir.name,"tempfile.html")
-            with open(tempfile,'w') as fp:
+            tempname = tempfile.NamedTemporaryFile().name
+            with open(tempname,'w') as fp:
                 target.write_file(fp)
-            launch_browser(None,tempfile)
+            launch_browser(None,tempname)
         return
     btn3 = tk.Button(frame
                       ,text="...and Convert then Open Browser" ,command=button3)

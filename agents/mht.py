@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """File agent for mime hypertext "mht" "mhtml" content"""
-import os.path
+import os
 import email
 import tempfile
 import re
@@ -11,7 +11,8 @@ class mht_agent():
         """ Unpack .mht file which contains MIME like email """
         self.tempdir = tempfile.TemporaryDirectory()
         self.basedir = self.tempdir.name
-        infile = open(filename, 'rb')
+        self.filename = filename
+        infile = open(self.filename, 'rb')
         try:
             data = email.message_from_binary_file(infile)
             if data.get_boundary() is None : raise
@@ -19,7 +20,6 @@ class mht_agent():
             raise TypeError("Unable to extract MIME data.")
         finally:
             infile.close()
-
         self.indexfile = '' # resolved during First Pass
         self.manifest = dict() # {"datapath":"filepath"}
 
@@ -108,3 +108,7 @@ class mht_agent():
                 outfile.write(content)
         return modified
    
+    def delete(self):
+        """Delete original file"""
+        os.remove(self.filename)
+        return
