@@ -1,6 +1,6 @@
 # Hypertext Legacy File Converter
 ---
-HTLFC is a Python3 utility that will convert the following file types into a single `.html` file:
+Hypertext Legacy File Converter "HTLFC" is a Python3 application that will convert the following file types into a single `.html` file:
 
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
 * `.mht` - MIME Hypertext.
@@ -28,7 +28,7 @@ Try this from the command line:
 
 >`htlfc.py infile outfile`
 
-Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.  If `outfile` is not given, then the result will be saved to `infile.html` (or `infile(1).html` if `infile.html` is the `file+dir` format).
+Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.  If `outfile` is not given, then the result will be saved to `infile.html` (where `infile.html` was `file+dir` format, it's output filename will be mangled).
 
 Useful command line options:
 >`-h` help - brief usage summary.
@@ -51,8 +51,8 @@ This interface offers an assisted workflow whereby HTLFC will look for all files
 
   * examine the unpacked file in default browser,
   * examine result of conversion also in browser,
-  * permanently convert the input,
-  * optionally delete the input,
+  * convert the input and save output to new file,
+  * optionally delete the input file,
   * copy the input file's timestamp to the output.
 
 ## Product
