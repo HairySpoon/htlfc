@@ -19,7 +19,7 @@ HTLFC performs two fundamental steps:
 * The input file is first unpacked into a temporary directory.  Some adjustment may take place depending on the format.
 * Associated files (style sheets, images, javascript, etc) are converted into in-line format and merged into the main file.
 
-The user may examine the unpacked content between the two steps.  Use either `-p` option "pause" from the command line, or select "Unpack and  Open Browser" from the graphical interface.
+The user may examine the unpacked content between the two steps.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
 
 ## Usage
 
@@ -31,19 +31,23 @@ Try this from the command line:
 Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.  If `outfile` is not given, then the result will be saved to `infile.html` (where `infile.html` was `file+dir` format, it's output filename will be mangled).
 
 Useful command line options:
->`-h` help - brief usage summary.
+>`-h | --help` - brief usage summary.
 
->`-p` pause after unpack - to examine the input.
+>`-p | --pause` - examine the input after unpack.
 
 ### Browser
 To examine the unpacked `infile` with the default browser of your operating system:
 
->`htlfc.py -b infile`
+>`htlfc --browser infile`
+
+>`htlfc -b infile`
 
 Hint: rather than permanently converting your archived hypertext files, create a file association in your operating system, between `htlfc.py -b` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
 
 ### Graphical User Interface
 Select your input and output files through a graphical dialogue:
+
+>`htlfc.py --gui`
 
 >`htlfc.py -g`
 
