@@ -1,6 +1,6 @@
 # Hypertext Legacy File Converter
 ---
-HTLFC is a Python3 utility that converts the following file types into a single `.html` file:
+HTLFC is a Python3 utility that will convert the following file types into a single `.html` file:
 
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
 * `.mht` - MIME Hypertext.
@@ -9,12 +9,12 @@ HTLFC is a Python3 utility that converts the following file types into a single 
 
 ## Use Cases
 
-The original use case for HTLFC emerged when Mozilla discontinued their legacy API; a necessity for the Firefox MAFF extension which thus became obsolete. Some users were left with collection of `.maff` and `.mht` files which could no longer be opened in the absence of that extension.
+The original use case for HTLFC emerged when Mozilla discontinued their legacy API; a necessity to the Firefox MAFF extension which thus became obsolete. Some users were left with collections of `.maff` and `.mht` files which could no longer be opened in the absence of that extension.
 
 Obviously HTLFC may also be used to open and/or convert hypertext files from other sources.
 
 ## Principle of Operation
-HTLFC executes two major steps:
+HTLFC performs two fundamental steps:
 
 * The input file is first unpacked into a temporary directory.  Some adjustment may take place depending on the format.
 * Associated files (style sheets, images, javascript, etc) are converted into in-line format and merged into the main file.
@@ -22,7 +22,47 @@ HTLFC executes two major steps:
 The user may examine the unpacked content between the two steps.  Use either `-p` option "pause" from the command line, or select "Unpack and  Open Browser" from the graphical interface.
 
 ## Usage
-`htlfc infile outfile`
 
+### Command Line
+Try this from the command line:
+
+>`htlfc.py infile outfile`
+
+Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.  If `outfile` is not given, then the result will be saved to `infile.html` (or `infile(1).html` if `infile.html` is the `file+dir` format).
+
+Useful command line options:
+>`-h` help - brief usage summary.
+
+>`-p` pause after unpack - to examine the input.
+
+### Browser
+To examine the unpacked `infile` with the default browser of your operating system:
+
+>`htlfc.py -b infile`
+
+Hint: rather than permanently converting your archived hypertext files, create a file association in your operating system, between `htlfc.py -b` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
+
+### Graphical User Interface
+Select your input and output files through a graphical dialogue:
+
+>`htlfc.py -g`
+
+This interface offers an assisted workflow whereby HTLFC will look for all files under a specified directory.  Then, for each file found, the user may:
+
+  * examine the unpacked file in default browser,
+  * examine result of conversion also in browser,
+  * permanently convert the input,
+  * optionally delete the input,
+  * copy the input file's timestamp to the output.
+
+## Product
+### Installation
+TODO
+
+### License
+HTLFC is licensed under AGLPv3 in accordance with the file "LICENSE" in the root directory of the source tree.  Choice of license is explained at [AboutLicense](AboutLicense.md)
+
+### Contributing
+TODO
 
 
