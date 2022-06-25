@@ -49,9 +49,13 @@ def converter(frame):
         """
         filepath = window.filename
         st = os.stat(filepath) # see below, preserve timestamp
-        source = loader.unpack(filepath)
+        try:
+            source = loader.unpack(filepath)
+        except Exception as err:
+            messagebox.showerror('Error',f"Error during unpack: {err}")
+            return None
         if source is None:
-            messagebox.showerror('Error',f"Unable to unpack file {name}")
+            messagebox.showerror('Error',f"Unable to unpack {filepath}")
             btn2.config(state=DISABLED)
             return None
         try:

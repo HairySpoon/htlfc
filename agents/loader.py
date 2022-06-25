@@ -20,18 +20,21 @@ mapping = {
     ".shtml"   : filedir_agent }
 
 def unpack(filename):
-    """Open the archive container return a 'source' object"""
+    """Open the archive container return a 'source' object
+    return@success = source object
+    failure = Execpetion RuntimeError()
+    """
 
     ext = os.path.splitext(filename)[1]
     if mapping.get(ext) is None :
-        print("Input file extension not understood... aborting")
-        return None
+        raise RuntimeError("Input file extension not understood... aborting")
     try:
         agent = mapping.get(ext, lambda: 'nothing')
         source = agent(filename)
     except TypeError as err:
-        print(f"Input rejected: {err}")
-        return None
+        raise RuntimeError(f"Input rejected: {err}")
+    except Exception as err:
+        raise RuntimeError(f"Failed to unpack: {err}")
 
     if not hasattr(source,"manifest"):
         manifest.make(source)

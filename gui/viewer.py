@@ -49,11 +49,15 @@ def viewer(frame):
 
     def button2():
         filepath = window.filename
-        source = loader.unpack(filepath)
+        try:
+            source = loader.unpack(filepath)
+        except Exception as err:
+            messagebox.showerror('Error',f"Error during unpack: {err}")
+            refresh(reset=True)
+            return
         if source is None:
             messagebox.showerror('Error',f"Unable to unpack file {filepath}")
-            btn2.config(state=tk.DISABLED)
-            btn3.config(state=tk.DISABLED)
+            refresh(reset=True)
         else:
             launch_browser(source,None)
         return
@@ -62,11 +66,15 @@ def viewer(frame):
 
     def button3():
         filepath = window.filename
-        source = loader.unpack(filepath)
+        try:
+            source = loader.unpack(filepath)
+        except Exception as err:
+            messagebox.showerror('Error',f"Error during unpack: {err}")
+            refresh(reset=True)
+            return
         if source is None:
             messagebox.showerror('Error',f"Unable to unpack file {filepath}")
-            btn2.config(state=tk.DISABLED)
-            btn3.config(state=tk.DISABLED)
+            refresh(reset=True)
         else:
             target = convert.convert(source) # conversion
             tempname = tempfile.NamedTemporaryFile().name
@@ -78,7 +86,14 @@ def viewer(frame):
                       ,text="...and Convert then Open Browser" ,command=button3)
     btn3.grid(row=1 ,column=2 ,padx=5 ,sticky=tk.W)
 
-    def refresh():
+    def refresh(reset=False):
+        """Set or disable state of buttons
+        reset==True force global refresh
+        """
+        if reset:
+            window.filename = None
+            window.global_refresh()
+            return
         filename = window.filename
         if filename is not None:
             btn2.config(state=tk.ACTIVE)
@@ -86,6 +101,7 @@ def viewer(frame):
         else:
             btn2.config(state=tk.DISABLED)
             btn3.config(state=tk.DISABLED)
+        return
 
     frame.refresh = refresh # for access by global_refresh()
-    refresh()
+    refresh() # upon init

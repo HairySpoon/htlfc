@@ -194,7 +194,7 @@ class ET():
                                     target3 = self.frames[datapath3]
                                     for filepath3,etree3 in self.forest[1:]:
                                         if filepath3 == target3:
-                                            print("Level three iframe was found but is not supported")
+                                            raise RuntimeError("Level three iframe was found but is not supported")
 
                                 # Found level 2 iframe...
                                 frame_text2 = lxml.etree.tostring(etree2,
