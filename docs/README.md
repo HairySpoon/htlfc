@@ -1,6 +1,6 @@
 # Hypertext Legacy File Converter
 ---
-Hypertext Legacy File Converter "HTLFC" is a Python3 application that will convert the following file types into a single `.html` file:
+Hypertext Legacy File Converter "HTLFC" is a Python3 application that converts the following file types into a single `.html` file:
 
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
 * `.mht` - MIME Hypertext.
@@ -22,13 +22,16 @@ HTLFC performs two fundamental steps:
 The user may examine the unpacked content between the two steps.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
 
 ## Usage
+These instructions describe invocation of HTLFC simply as `htlfc.py`.  Depending on the user's environment, it may be necessary to include the full path to the executable.
 
 ### Command Line
 Try this from the command line:
 
 >`htlfc.py infile outfile`
 
-Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.  If `outfile` is not given, then the result will be saved to `infile.html` (where `infile.html` was `file+dir` format, it's output filename will be mangled).
+Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.
+
+If `outfile` were not specified, then the result would be saved to `infile.html` - unless `infile.html` represented `file+dir` format, then it's output filename would be mangled to avoid overwriting the input.
 
 Useful command line options:
 >`-h | --help` - brief usage summary.
@@ -60,6 +63,7 @@ This interface offers an assisted workflow whereby HTLFC will look for all files
   * copy the input file's timestamp to the output.
 
 ## Product
+
 ### Installation
 TODO
 
@@ -67,6 +71,6 @@ TODO
 HTLFC is licensed under AGLPv3 in accordance with the file "LICENSE" in the root directory of the source tree.  Choice of license is explained at [AboutLicense](AboutLicense.md)
 
 ### Contributing
-TODO
+The developer does not expect to grow the product.  However, contributions to that end are welcome as described in [CONTRIBUTING](CONTRIBUTING.md)
 
 
