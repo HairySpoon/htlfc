@@ -43,8 +43,8 @@ def launch_browser(source,filename):
     return
 
 def viewer(frame):
-    """ Open a dialog in <frame> to launch browser
-    (no actual conversion takes place) """
+    """Open a dialog in <frame> to launch browser
+    (no actual conversion takes place)"""
     window = frame.master  # fetch parent window
 
     def button2():
@@ -53,11 +53,11 @@ def viewer(frame):
             source = loader.unpack(filepath)
         except Exception as err:
             messagebox.showerror('Error',f"Error during unpack: {err}")
-            refresh(reset=True)
+            reset()
             return
         if source is None:
             messagebox.showerror('Error',f"Unable to unpack file {filepath}")
-            refresh(reset=True)
+            reset()
         else:
             launch_browser(source,None)
         return
@@ -70,11 +70,11 @@ def viewer(frame):
             source = loader.unpack(filepath)
         except Exception as err:
             messagebox.showerror('Error',f"Error during unpack: {err}")
-            refresh(reset=True)
+            reset()
             return
         if source is None:
             messagebox.showerror('Error',f"Unable to unpack file {filepath}")
-            refresh(reset=True)
+            reset()
         else:
             target = convert.convert(source) # conversion
             tempname = tempfile.NamedTemporaryFile().name
@@ -86,14 +86,14 @@ def viewer(frame):
                       ,text="...and Convert then Open Browser" ,command=button3)
     btn3.grid(row=1 ,column=2 ,padx=5 ,sticky=tk.W)
 
-    def refresh(reset=False):
-        """Set or disable state of buttons
-        reset==True force global refresh
-        """
-        if reset:
-            window.filename = None
-            window.global_refresh()
-            return
+    def reset():
+        """Force state as if no file selected"""
+        window.filename = None
+        window.global_refresh()
+        return
+
+    def refresh():
+        """Set or disable state of buttons"""
         filename = window.filename
         if filename is not None:
             btn2.config(state=tk.ACTIVE)
