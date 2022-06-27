@@ -19,7 +19,7 @@ def select(frame):
         if len(filename) is 0: return
         if os.path.isfile(filename):
             window.filename = filename
-        window.global_refresh()
+        window.refresh()
         return
     btn1 = tk.Button(frame ,text=btn1default ,width=60
                            ,anchor=tk.W ,command=button1)
@@ -39,4 +39,4 @@ def select(frame):
         else:
             btn1.configure(text=btn1default)
 
-    frame.refresh = refresh # for access by global_refresh()
+    frame.refresh = refresh # for access by refresh()

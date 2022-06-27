@@ -21,7 +21,7 @@ def find(frame):
         if os.path.isdir(dirname):
             frame.dirname = dirname
         search()
-        window.global_refresh()
+        window.refresh()
         return
     btn1 = tk.Button(frame ,text=btn1default ,width=60
                            ,anchor=tk.W ,command=button1)
@@ -52,7 +52,7 @@ def find(frame):
         else:
             filename = frame.fileslist.pop(0)
             window.filename = filename
-        window.global_refresh()
+        window.refresh()
         return
     btn2 = tk.Button(frame ,text="Next" ,command=button2)
     btn2.grid(row=1, column=2, sticky=tk.W)
@@ -66,5 +66,5 @@ def find(frame):
             btn1.configure(text=dirname)
             btn2.config(state=tk.ACTIVE)
 
-    frame.refresh = refresh # for access by global_refresh()
+    frame.refresh = refresh # for access by refresh()
     refresh()

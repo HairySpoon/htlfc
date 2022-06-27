@@ -89,7 +89,7 @@ def viewer(frame):
     def reset():
         """Force state as if no file selected"""
         window.filename = None
-        window.global_refresh()
+        window.refresh()
         return
 
     def refresh():
@@ -103,5 +103,5 @@ def viewer(frame):
             btn3.config(state=tk.DISABLED)
         return
 
-    frame.refresh = refresh # for access by global_refresh()
+    frame.refresh = refresh # for access by refresh()
     refresh() # upon init

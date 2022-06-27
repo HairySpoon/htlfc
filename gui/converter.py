@@ -84,7 +84,7 @@ def converter(frame):
                     oldname = entOutfile.get()
                     source.rename(oldname)
         window.filename = None
-        window.global_refresh()
+        window.refresh()
         return
 
     btn2 = ttk.Button(frame, state=tk.DISABLED
@@ -100,4 +100,4 @@ def converter(frame):
             outfile_name(filename)
             btn2.config(state=tk.ACTIVE)
 
-    frame.refresh = refresh # for access by global_refresh()
+    frame.refresh = refresh # for access by refresh()

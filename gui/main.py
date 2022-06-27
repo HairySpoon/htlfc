@@ -14,7 +14,6 @@ def interface():
     window = tk.Tk()
     window.title("Hypertext Legacy File Converter")
     window.geometry('800x400')
-    window.lookatme=True
 
     # https://stackoverflow.com/questions/3352918/how-to-center-a-window-on-the-screen-in-tkinter
     window.eval("tk::PlaceWindow . center") # far from perfect (better than in a corner)
@@ -35,12 +34,12 @@ def interface():
     frmConvert.pack(side=tk.TOP ,fill=tk.BOTH ,expand=True)
     converter.converter(frmConvert)
 
-    def global_refresh():
+    def refresh():
         frmSelect.refresh()
         frmFind.refresh()
         frmBrowse.refresh()
         frmConvert.refresh()
-    window.global_refresh = global_refresh
+    window.refresh = refresh
 
     # Launch the GUI.
     window.mainloop()
