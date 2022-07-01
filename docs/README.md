@@ -1,6 +1,6 @@
 # Hypertext Legacy File Converter
 ---
-Hypertext Legacy File Converter "HTLFC" is a Python3 application that converts the following file types into a single `.html` file:
+Hypertext Legacy File Converter "HTLFC" converts the following file types into a single `.html` file:
 
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
 * `.mht` - MIME Hypertext.
@@ -9,7 +9,7 @@ Hypertext Legacy File Converter "HTLFC" is a Python3 application that converts t
 
 ## Use Cases
 
-The original use case for HTLFC emerged when Mozilla discontinued their legacy API; a necessity to the Firefox MAFF extension which thus became obsolete. Some users were left with collections of `.maff` and `.mht` files which could no longer be opened in the absence of that extension.
+The original use case for HTLFC emerged when Mozilla discontinued their legacy API; essential to the Firefox MAFF extension which thus became obsolete. Some users were left with collections of `.maff` and `.mht` files which could no longer be opened in the absence of that extension.
 
 Obviously HTLFC may also be used to open and/or convert hypertext files from other sources.
 
@@ -65,10 +65,10 @@ This interface offers an assisted workflow whereby HTLFC will look for all files
 ## Product
 
 ### Installation
-TODO
+Follow the instructions at [INSTALL.md](INSTALL.md)
 
 ### License
-HTLFC is licensed under AGLPv3 in accordance with the file "LICENSE" in the root directory of the source tree.  Choice of license is explained at [AboutLicense](AboutLicense.md)
+HTLFC is licensed under AGLPv3 in accordance with the file "LICENSE.txt" in the root directory of the source tree.  Choice of license is explained at [AboutLicense](AboutLicense.md)
 
 ### Contributing
 The developer does not expect to grow the product.  However, contributions to that end are welcome as described in [CONTRIBUTING](CONTRIBUTING.md)
