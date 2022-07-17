@@ -22,12 +22,12 @@ HTLFC performs two fundamental steps:
 The user may examine the unpacked content between the two steps.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
 
 ## Usage
-These instructions describe invocation of HTLFC simply as `htlfc.py`.  Depending on the user's environment, it may be necessary to include the full path to the executable.
+These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's environment, it may be necessary to include the full path to the executable.
 
 ### Command Line
 Try this from the command line:
 
->`htlfc.py infile outfile`
+>`htlfc infile outfile`
 
 Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.
 
@@ -45,14 +45,14 @@ To examine the unpacked `infile` with the default browser of your operating syst
 
 >`htlfc -b infile`
 
-Hint: rather than permanently converting your archived hypertext files, create a file association in your operating system, between `htlfc.py -b` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
+Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
 
 ### Graphical User Interface
 Select your input and output files through a graphical dialogue:
 
->`htlfc.py --gui`
+>`htlfc --gui`
 
->`htlfc.py -g`
+>`htlfc -g`
 
 This interface offers an assisted workflow whereby HTLFC will look for all files under a specified directory.  Then, for each file found, the user may:
 
@@ -72,5 +72,4 @@ HTLFC is licensed under AGLPv3 in accordance with the file "LICENSE.txt" in the 
 
 ### Contributing
 The developer does not expect to grow the product.  However, contributions to that end are welcome as described in [CONTRIBUTING](CONTRIBUTING.md)
-
 

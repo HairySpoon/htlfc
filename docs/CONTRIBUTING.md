@@ -1,12 +1,12 @@
 # Contributing
 
 ## Product Status
-Hypertext Legacy File Converter "HTLFC" has satisfied the developer's needs.  Accordingly, little appetite remains to develop additional functionality beyond initial release. However, custodianship of the repository is assumed.
+Hypertext Legacy File Converter "HTLFC" has satisfied the developer's needs.  Accordingly, little appetite remains to develop additional functionality. However, custodianship of the repository is assumed.
 
-HTLFC is released on GitHub with the primary aim being to share it's solution with others. As a secondary objective: GitHub was chosen to enable, anyone skilled in Python, to write and submit changes.
+HTLFC is released on GitHub with the primary aim being to share it's solution with others. As a secondary objective, GitHub was chosen to enable anyone skilled in Python, to write and submit changes.
 
 ## File Agents
-It is plausible that web browser hypertext may exist in file formats complimentary to those already supported by HTLFC.  Accordingly, the repository is open to contributions of additional File Agents.  For the most part, the job of a File Agent is simply to unpack the container in temporary storage and find the `index.html` file.  However, some file formats may require adjustments (I'm looking at you MHT).
+It is plausible that web browser hypertext may exist in file formats other than those already supported by HTLFC.  Accordingly, the repository is open to contributions of additional File Agents.  For the most part, the job of a File Agent is simply to unpack the container in temporary storage and find the `index.html` file.  However, some file formats may require adjustments (MHT is notable for this).
 
 Examination of the modules in the `agents/` directory would provide a starting point for programmers wanting to unpack other file formats.  The file [Agents_API.md](../agents/Agents_API.md) should also be consulted at the outset.
 

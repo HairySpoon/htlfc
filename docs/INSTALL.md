@@ -18,7 +18,7 @@ In addition to the Python standard library, HTLFC also requires the following mo
     >>> import lxml
     >>> import chardet
 
-If any of the above fails, install the missing modules, either through your Operating System's package manager or with `pip3`.
+If any of the above fail, install the missing modules, either through your Operating System's package manager or with `pip3`.
 
 ### Fetch HTLFC
 
@@ -30,7 +30,7 @@ From the HTLFC repository on GitHub, pull down the options under the **Code** bu
 #### GIT Clone
 Ensure that `git` is installed in your Operating System.
 
-Start by creating a working directory on your computer. Then clone the repository:
+Create a working directory on your computer; then clone the repository:
 
     $ git clone https://github.com/HairySpoon/htlfc.git
 
@@ -39,12 +39,12 @@ Start by creating a working directory on your computer. Then clone the repositor
 Under the working directory created above, go to the `src/` sub-directory.
 Validate the executable:
 
-    $ ./htlfc.py -h
+    $ ./htlfc -h
 
 To complete your evaluation of HTLFC, try any of the following:
->* Launch `htlfc.py` as above, provide a full path to `infile` and `outfile`.
->* Starting at the location of `infile`, launch `htlfc.py` using a full path.
->* Launch `htflc.py -g` and select files through the data entry form.
+>* Launch `htlfc` as above, provide a full path to `infile` and `outfile`.
+>* Starting at the location of `infile`, launch `htlfc` using a full path.
+>* Launch `htflc -g` and select files through the data entry form.
 
 ## PIP Method
 Use this method to install HTLFC into your `PYTHONPATH` so that it may be invoked from anywhere.
@@ -58,8 +58,8 @@ Ensure that `pip3` version 18.1 or later is installed:
     $ pip3 install git+https://github.com/HairySpoon/htlfc.git
 
 ### Execute
-Validate the executable; start in any directory and...
+Validate the executable; run this command from anywhere...
 
-    $ htlfc.py -h
+    $ htlfc -h
 
 Usage instructions appear in the `README.md` file in the repository on GitHub.
