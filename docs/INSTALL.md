@@ -18,7 +18,7 @@ In addition to the Python standard library, HTLFC also requires the following mo
     >>> import lxml
     >>> import chardet
 
-If any of the above fail, install them through either your Operating System package manager or with `pip3`.
+If any of the above fails, install the missing modules, either through your Operating System's package manager or with `pip3`.
 
 ### Fetch HTLFC
 
