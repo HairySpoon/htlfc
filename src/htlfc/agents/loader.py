@@ -4,11 +4,11 @@ import os.path
 import tempfile
 
 # Agents for each file type container
-from agents.mht import mht_agent
-from agents.maff import maff_agent
-from agents.war import war_agent
-from agents.filedir import filedir_agent
-from merger import manifest
+from htlfc.agents.mht import mht_agent
+from htlfc.agents.maff import maff_agent
+from htlfc.agents.war import war_agent
+from htlfc.agents.filedir import filedir_agent
+from htlfc.merger import manifest
 
 # Dictionary used by both unpack() and htlfc.__main__
 mapping = {

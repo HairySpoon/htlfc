@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
-"""
-HyperText Legacy File Converter
--------------------------------
-Convert legacy web pages into one .html
-Supported input file types are:
-  maff, mht, war(KDE konquorer) and file+directory(with limitations)
-"""  
+""" HyperText Legacy File Converter
+Parse arguments and launch the converter"""
 import os.path
 import sys
 import argparse
 
 # application modules
-from agents import loader
-from merger import convert
-from gui import viewer
+from htlfc.agents import loader
+from htlfc.merger import convert
+from htlfc.gui import viewer
+from htlfc.gui import interface
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--pause' ,action='store_true'
                        ,help = 'Pause after unpack, to examine tempdir.')
@@ -54,7 +50,7 @@ if __name__ == '__main__':
             abort = True
         else:
             infile = args.infile
-        root,ext = os.path.splitext(infile)
+            root,ext = os.path.splitext(infile)
 
     if mode == 'gui' or mode == 'browser':
         if args.outfile:
@@ -69,7 +65,7 @@ if __name__ == '__main__':
             print("Input file cannot be read.")
             abort = True
 
-    if mode == 'file':
+    if mode == 'file' and args.infile is not None:
         if args.outfile:
             outfile = args.outfile
         else:
@@ -84,8 +80,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     if mode == 'gui':
-        from gui import main
-        main.interface()
+        interface.interface()
         sys.exit()
         
     # Load File
@@ -117,4 +112,7 @@ if __name__ == '__main__':
 
     # Cleanup (force temp directory delete)
     del source
+
+if __name__ == '__main__':
+    main()
 

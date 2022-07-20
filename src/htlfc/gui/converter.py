@@ -4,8 +4,8 @@ import os
 import tkinter as tk
 from tkinter import ttk ,messagebox
 
-from agents import loader
-from merger import convert
+from htlfc.agents import loader
+from htlfc.merger import convert
 
 def converter(frame):
     """Open a dialog in <frame> to convert file to .html with options"""

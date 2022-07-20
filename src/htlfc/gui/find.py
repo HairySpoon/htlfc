@@ -4,7 +4,7 @@ import os
 import tkinter as tk
 from tkinter import ttk ,filedialog
 
-from agents import loader # finder below, uses "mapping"
+from htlfc.agents import loader # search() uses "mapping"
 
 def find(frame):
     """Open a dialog in <frame> to solicit filename"""

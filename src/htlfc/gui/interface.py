@@ -2,10 +2,10 @@
 """ Graphical front end """  
 import tkinter as tk
 
-from gui import select
-from gui import find
-from gui import viewer
-from gui import converter
+from htlfc.gui import select
+from htlfc.gui import find
+from htlfc.gui import viewer
+from htlfc.gui import converter
 
 def interface():
     """Solicit parameters from user"""

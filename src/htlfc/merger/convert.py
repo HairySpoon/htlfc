@@ -3,7 +3,7 @@
 
 import os
 
-from merger.xmltree import ET
+from htlfc.merger.xmltree import ET
 
 def convert(source):
     """Convert source into xml element tree and supervise conversion

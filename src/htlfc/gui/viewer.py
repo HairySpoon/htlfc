@@ -7,8 +7,8 @@ import webbrowser
 import tkinter as tk
 from tkinter import messagebox
 
-from agents import loader
-from merger import convert
+from htlfc.agents import loader
+from htlfc.merger import convert
 
 def launch_browser(source,filename):
     """Launch webbrowser with either source or filename

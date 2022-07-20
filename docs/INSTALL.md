@@ -1,9 +1,8 @@
 # Installation
-Hypertext Legacy File Converter "HTLFC" is a Python 3 application hosted on GitHub.
-Most people would install HTLFC with the *PIP Method* although the *Manual Method* is described first.
+Hypertext Legacy File Converter "HTLFC" is a Python 3 application, it may be installed either manually or with `pip3`.
 
 ## Manual Method
-Use this method to download and test HTLFC without a permanent installation.
+Use this method to download and test HTLFC without a permanent installation.  This is also relevant for developing the code.
 
 ### Prerequisites
 HTLFC requires Python version 3.6 or later.
@@ -39,27 +38,34 @@ Create a working directory on your computer; then clone the repository:
 Under the working directory created above, go to the `src/` sub-directory.
 Validate the executable:
 
-    $ ./htlfc -h
+    $ ./htlfc.py -h
 
-To complete your evaluation of HTLFC, try any of the following:
->* Launch `htlfc` as above, provide a full path to `infile` and `outfile`.
->* Starting at the location of `infile`, launch `htlfc` using a full path.
->* Launch `htflc -g` and select files through the data entry form.
+To continue your evaluation of HTLFC, try any of the following:
+>* Launch `htlfc.py` as above, provide a full path to `infile` and `outfile`.
+>* Starting at the location of `infile`, launch `htlfc.py` using a full path.
+>* Launch `htflc.py -g` and select files through the data entry form.
 
 ## PIP Method
-Use this method to install HTLFC into your `PYTHONPATH` so that it may be invoked from anywhere.
+Use this method to install HTLFC into your operating system.
 
 Ensure that `pip3` version 18.1 or later is installed:
 
     $ pip3 -V
 
+### From Local Repository
+If you followed the manual method above, HTLFC can be installed from the working directory (not `src`) as follows:
+
+    $ pip3 install .
+
 ### From GitHub
+To install HTLFC without making a working copy do this...
 
     $ pip3 install git+https://github.com/HairySpoon/htlfc.git
 
+
 ### Execute
-Validate the executable; run this command from anywhere...
+Validate the executable.  Launch `htlfc` (without the `.py` extension) from anywhere...
 
     $ htlfc -h
 
-Usage instructions appear in the `README.md` file in the repository on GitHub.
+Note that user documentation remains in the `README.md` file on the GitHub repository.
