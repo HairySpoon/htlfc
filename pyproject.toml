@@ -4,3 +4,29 @@ requires = [
     "wheel"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "htlfc"
+version = "0.1.0"
+description = "Hypertext Legacy File Converter"
+requires-python = ">=3.6"
+keywords = [ "hypertext", "html", "mht", "maff" ]
+license = { text="AGPLv3+" }
+classifiers =[
+    "Intended Audience :: End Users/Desktop",
+    "Programming Language :: Python :: 3.6",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+]
+dependencies = [
+    "lxml",
+    "chardet",
+]
+
+[project.scripts]
+htlfc = "htlfc:run_htlfc"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["htlfc*"]
