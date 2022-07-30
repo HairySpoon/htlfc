@@ -42,7 +42,7 @@ def unpack(filename):
 
 def dump(source):
     """Write manifest and frames to file system at tempdir.
-    For debugging purposes only.
+    Then show user location of tempdir and prompt to continue.
     """
 
     if hasattr(source, 'tempdir'):
@@ -51,6 +51,7 @@ def dump(source):
     else:
         tempdir = tempfile.TemporaryDirectory()
 
+    # writing these to tempdir is for debugging
     manifest=os.path.join(tempdir.name,'manifest.txt')
     with open(manifest,'w') as fp:
         for datapath,filepath in source.manifest.items() :

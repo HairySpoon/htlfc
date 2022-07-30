@@ -2,15 +2,15 @@
 
 File agents prepare content for conversion by the merger tools; a consistent interface between the two systems is essential.
 
-Responsibilities of the file agents are:
+During the first pass, a file agent does the following:
 
 * Unpack the content into a temporary location on the file system.
 * Provide the merge tools with:
     * index file - the primary HTML.
-    * manifest (optional) - a dictionary, it's keys describing strings embedded in the HTML and its values being pointers to the content, the files, in the temporary location. If manifest is not provided then merger/manifest.py will be called to create it retrospectively.
+    * manifest (optional) - a dictionary, it's keys describing strings embedded in the HTML and its values being pointers to the content (the files) in the temporary location. If manifest is not provided then `merger/manifest.py` will be called to create it retrospectively.
 * Upon exit, delete the temporary files.
 
-Merge tools use this as follows:
+During the second pass, merge tools use this as follows:
 
 * Index file is converted into an XML element tree.
 * Objects described by the file map are merged into the tree.
@@ -63,7 +63,7 @@ It is a responsibility of the file agent to ensure that the keys will appear in 
 > The MHT agent solves these by rewriting the HTML and CSS with an arbitrary string which is also used as the name of the MIME file in `tempdir`.
 
 >### MAFF Agent
-There are two known MAFF variants.  One contains its files at the same level as the index file.  The other employs a directory "index_files" for this purpose.  The agent adjusts manifest to suit.
+There are two known MAFF variants.  One holds its files at the same level as the index file.  The other employs a directory "index_files" for this purpose.  The agent adjusts manifest to suit.
 
 ## Exceptions
 

@@ -5,7 +5,7 @@ Hypertext Legacy File Converter "HTLFC" converts the following file types into a
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
 * `.mht` - MIME Hypertext.
 * `.war` - Web ARchive as produced by the KDE Konqueror web browser (other sources of `.war` files have not been tested).
-* `file+dir` - web page saved as *filename*.html plus *filename_files/* directory (the native "Save As" format used by Firefox and Chrome).
+* `file+dir` - web page saved as *filename*.html plus *filename_files/* directory (the native "Save As" format provided by Firefox and Chrome).
 
 ## Use Cases
 
@@ -14,12 +14,12 @@ The original use case for HTLFC emerged when Mozilla discontinued their legacy A
 Obviously HTLFC may also be used to open and/or convert hypertext files from other sources.
 
 ## Principle of Operation
-HTLFC performs two fundamental steps:
+HTLFC makes two passes:
 
-* The input file is first unpacked into a temporary directory.  Some adjustment may take place depending on the format.
-* Associated files (style sheets, images, javascript, etc) are converted into in-line format and merged into the main file.
+* Pass 1. The input file is first unpacked into a temporary directory.  Some adjustment may take place depending on the format.
+* Pass 2. Associated files (style sheets, images, javascript, etc) are converted into in-line format and merged into the main file.
 
-The user may examine the unpacked content between the two steps.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
+The user may examine the unpacked content between passes.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
 
 ## Usage
 These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's environment, it may be necessary to include the full path to the executable.
@@ -31,7 +31,7 @@ Try this from the command line:
 
 Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.
 
-If `outfile` were not specified, then the result would be saved to `infile.html` - unless `infile.html` represented `file+dir` format, then it's output filename would be mangled to avoid overwriting the input.
+When `outfile` is not specified, the result would be saved to `infile.html` - unless `infile.html` represented `file+dir` format, then it's output filename would be mangled to avoid overwriting the input.
 
 Useful command line options:
 >`-h | --help` - brief usage summary.
@@ -45,7 +45,7 @@ To examine the unpacked `infile` with the default browser of your operating syst
 
 >`htlfc -b infile`
 
-Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
+Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc -b` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
 
 ### Graphical User Interface
 Select your input and output files through a graphical dialogue:
