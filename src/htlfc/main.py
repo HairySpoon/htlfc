@@ -6,6 +6,7 @@ import sys
 import argparse
 
 # application modules
+from htlfc import version
 from htlfc.agents import loader
 from htlfc.merger import convert
 from htlfc.gui import viewer
@@ -19,6 +20,8 @@ def main():
                        ,help = "Input file: maff, mht, war, file+directory.")
     parser.add_argument('outfile' ,nargs='?'
                        ,help = "If not given, then infile with extension 'html'.")
+    parser.add_argument('-v', '--version' ,action='store_true'
+                       ,help = 'Print version number and exit.')
 
     browser = parser.add_argument_group(
               "Convert and open in browser (requires infile)")
@@ -32,6 +35,7 @@ def main():
 
     # Validate Arguments
     abort = False
+
     if args.gui and args.browser:
         print("Invalid: both --gui and --browser")
         abort = True
@@ -41,6 +45,8 @@ def main():
             mode = 'browser'
         elif args.gui:
             mode = 'gui'
+        elif args.version:
+            mode = 'version'
         else:
             mode = 'file'
 
@@ -79,9 +85,14 @@ def main():
     if abort:
         sys.exit(1)
 
+    if mode == 'version':
+        this_version = version.get_version()
+        print(this_version)
+        sys.exit(0)
+
     if mode == 'gui':
         interface.interface()
-        sys.exit()
+        sys.exit(0)
         
     # Load File
     if mode == 'file' or mode == 'browser':

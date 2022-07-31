@@ -7,7 +7,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "htlfc"
-version = "0.1.0"
 description = "Hypertext Legacy File Converter"
 requires-python = ">=3.6"
 keywords = [ "hypertext", "html", "mht", "maff" ]
@@ -23,6 +22,7 @@ dependencies = [
     "lxml",
     "chardet",
 ]
+dynamic = ["version"]
 
 [project.scripts]
 htlfc = "htlfc:run_htlfc"
@@ -30,3 +30,7 @@ htlfc = "htlfc:run_htlfc"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["htlfc*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "htlfc.version.__version__" }
+
