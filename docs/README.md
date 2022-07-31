@@ -16,10 +16,14 @@ Obviously HTLFC may also be used to open and/or convert hypertext files from oth
 ## Principle of Operation
 HTLFC makes two passes:
 
-* Pass 1. The input file is first unpacked into a temporary directory.  Some adjustment may take place depending on the format.
-* Pass 2. Associated files (style sheets, images, javascript, etc) are converted into in-line format and merged into the main file.
+* Pass 1. The input file is unpacked into a temporary directory.  Some adjustment may take place depending on the format.
+* Pass 2. Associated files (style sheets, images, javascript, etc) are converted into in-line format and merged (in memory) then written back to storage as one `.html` file.
 
 The user may examine the unpacked content between passes.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
+
+### Known Limitations
+Nested iframes can only be in-lined two levels deep. The first level is enclosed in double quotes ( " ) within this, the second level is enclosed in single quotes ( ' ). Should a file contain a third level, an error will be reported without generating any output. This does not apply when using the browser to examine the first pass.
+
 
 ## Usage
 These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's environment, it may be necessary to include the full path to the executable.
@@ -65,11 +69,11 @@ This interface offers an assisted workflow whereby HTLFC will look for all files
 ## Product
 
 ### Installation
-Follow the instructions at [INSTALL.md](INSTALL.md)
+Follow the instructions at [INSTALL](INSTALL.md)
 
 ### License
-HTLFC is licensed under AGLPv3 in accordance with the file "LICENSE.txt" in the root directory of the source tree.  Choice of license is explained at [AboutLicense](AboutLicense.md)
+HTLFC is licensed under AGLPv3 in accordance with the file `LICENSE` in the root directory of the project.  Choice of license is explained at [AboutLicense](AboutLicense.md)
 
 ### Contributing
-The developer does not expect to grow the product.  However, contributions to that end are welcome as described in [CONTRIBUTING](CONTRIBUTING.md)
+Developer does not expect to grow the product.  However, contributions to that end are welcome as described in [CONTRIBUTING](CONTRIBUTING.md)
 
