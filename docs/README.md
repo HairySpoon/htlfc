@@ -31,7 +31,7 @@ These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's envi
 ### Command Line
 Try this from the command line:
 
->`htlfc infile outfile`
+>`$ htlfc infile outfile`
 
 Where `infile` is one of the supported hypertext formats and (the optional) `outfile` will contain the result of conversion.
 
@@ -45,18 +45,18 @@ Useful command line options:
 ### Browser
 To examine the unpacked `infile` with the default browser of your operating system:
 
->`htlfc --browser infile`
+>`$ htlfc --browser infile`
 
->`htlfc -b infile`
+>`$ htlfc -b infile`
 
-Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc -b` and each of the supported file types. When opening one of these files in your file manager, HTLFC will launch your browser with the unpacked file.
+Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc -b` and each of the supported file types. When opening one of these files through your file manager, HTLFC will launch your browser with the unpacked file.
 
 ### Graphical User Interface
 Select your input and output files through a graphical dialogue:
 
->`htlfc --gui`
+>`$ htlfc --gui`
 
->`htlfc -g`
+>`$ htlfc -g`
 
 This interface offers an assisted workflow whereby HTLFC will look for all files under a specified directory.  Then, for each file found, the user may:
 

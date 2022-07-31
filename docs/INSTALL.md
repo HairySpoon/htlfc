@@ -1,5 +1,5 @@
 # Installation
-Hypertext Legacy File Converter "HTLFC" is a Python 3 application, it may be installed either manually or through `pip3`.
+Hypertext Legacy File Converter "HTLFC" is a Python 3 application, it may be installed either manually or through `pip3`. The uncomplicated option is to install directly from GitHub described near the end of this instruction.
 
 ## Manual Method
 Use this method to download and test HTLFC without a permanent installation.  Also relevant for software development.
@@ -52,16 +52,17 @@ Ensure that `pip3` version 18.1 or later is installed:
 
     $ pip3 -V
 
+With super user privileges, `pip3` will install to a system directory. If without, then to the user's home directory, for example `~/.local/bin`
+
 ### From Local Repository
 If you followed the manual method above, HTLFC can be installed from the working directory (not `src`) as follows:
 
-    $ pip3 install .
+    # pip3 install .
 
 ### From GitHub
-To install HTLFC without making a working copy do this...
+To install HTLFC without making a working copy:
 
-    $ pip3 install git+https://github.com/HairySpoon/htlfc.git
-
+    # pip3 install git+https://github.com/HairySpoon/htlfc.git
 
 ### Execute
 Validate the executable.  Launch `htlfc` (without the `.py` extension) from anywhere...
