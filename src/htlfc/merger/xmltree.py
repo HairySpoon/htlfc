@@ -174,7 +174,9 @@ class ET():
         for element1 in tree.findall(tag):
             datapath1 = element1.get('src')
             if datapath1 is None: continue
-            target1 = self.frames[datapath1]
+            if datapath1 in self.frames:
+                target1 = self.frames[datapath1]
+            else: continue
             # ignore [0] because it is the primary etree...
             for filepath1,etree1 in self.forest[1:]:
                 if filepath1 == target1:
@@ -183,7 +185,9 @@ class ET():
                     for element2 in etree1.findall(tag):
                         datapath2 = element2.get('src')
                         if datapath2 is None: continue
-                        target2 = self.frames[datapath2]
+                        if datapath2 in self.frames:
+                            target2 = self.frames[datapath2]
+                        else: continue
                         for filepath2,etree2 in self.forest[1:]:
                             if filepath2 == target2:
 
@@ -191,7 +195,9 @@ class ET():
                                 for element3 in etree2.findall(tag):
                                     datapath3= element3.get('src')
                                     if datapath3 is None: continue
-                                    target3 = self.frames[datapath3]
+                                    if datapath3 in self.frames:
+                                        target3 = self.frames[datapath3]
+                                    else: continue
                                     for filepath3,etree3 in self.forest[1:]:
                                         if filepath3 == target3:
                                             raise RuntimeError("Level three iframe was found but is not supported")
