@@ -1,6 +1,6 @@
 name: Tag and Release
 ###### This is a Work in Progress #######
-on: [workflow_dispatch]
+on: workflow_dispatch
   inputs:
     version:
       description: 'The semantic version string for this release'
