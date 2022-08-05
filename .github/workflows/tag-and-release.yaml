@@ -1,11 +1,12 @@
 name: Tag and Release
 ###### This is a Work in Progress #######
-on: workflow_dispatch
-  inputs:
-    version:
-      description: 'The semantic version string for this release'
-      required: true
-      type: string
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: "The semantic version string for this release"
+        required: true
 
 jobs:
   Do-Something:
