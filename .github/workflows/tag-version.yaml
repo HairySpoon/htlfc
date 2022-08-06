@@ -5,7 +5,7 @@ on:
     inputs:
       vers_str:
         type: string
-        description: "The semantic version string for this tag - include leading 'v'"
+        description: "Semantic version string for this tag (include leading 'v')"
         required: true
 
 jobs:
