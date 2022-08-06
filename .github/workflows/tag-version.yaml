@@ -34,6 +34,6 @@ jobs:
       - name: Create and push tag
         run: |
           cd ${{ github.workspace }}
-          git tag $vers -a
+          git tag -a $vers
           git push --tags
 
