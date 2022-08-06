@@ -20,8 +20,9 @@ jobs:
 
       - name: Commit from runner to repository
         run: |
-          git add VERSION
-          git config user.name "Workflow: version-update.yaml"
-          git config user.email "<>"
-          git commit -m "Rewrite VERSION with last commit"
-          git push origin master
+          echo $PWD
+#          git add VERSION
+#          git config user.name "Workflow: version-update.yaml"
+#          git config user.email "<>"
+#          git commit -m "Rewrite VERSION with last commit"
+#          git push origin master
