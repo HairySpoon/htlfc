@@ -1,5 +1,4 @@
 name: Tag and Release
-###### This is a Work in Progress #######
 on: 
   workflow_dispatch:
     inputs:
@@ -12,9 +11,22 @@ jobs:
   Tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        run: |
-          echo "The ${{ github.repository }} repository has been cloned to the runner."
-          echo "Version string input was ${{ github.event.inputs.vers_str }}"
+      - uses: actions/checkout@v3
+        with:
+           fetch-depth: 0    # get tags as well
 
+      - name: Rewrite VERSION
+        run: |
+          cd ${{ github.workspace }}/src/htlfc
+          echo "Version string input was ${{ github.event.inputs.vers_str }}"
+          vers= ${{ github.event.inputs.vers_str }}
+          #echo $vers > VERSION
+          echo $vers
+
+      - name: Commit from runner to repository
+        run: |
+          git add VERSION
+          git config user.name "Workflow: tag-and-release.yaml"
+          git config user.email "<>"
+          git commit -m "Rewrite VERSION with new tag"
+          #git push
