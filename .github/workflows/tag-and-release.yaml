@@ -18,7 +18,6 @@ jobs:
       - name: Rewrite VERSION
         run: |
           cd ${{ github.workspace }}/src/htlfc
-          #echo "Version string input was ${{ github.event.inputs.vers_str }}"
           vers=${{ github.event.inputs.vers_str }}
           echo $vers > VERSION
 
@@ -29,4 +28,4 @@ jobs:
           git config user.name "Workflow: tag-and-release.yaml"
           git config user.email "<>"
           git commit -m "Rewrite VERSION with new tag"
-          #git push
+          git push
