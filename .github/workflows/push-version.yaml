@@ -1,6 +1,7 @@
+# Rewrite src/htlfc/VERSION with latest git version
 name: Version Update
-# Rewrite src/htlfc/VERSION with incremental value
-on: [push, workflow_dispatch]
+on:
+  push:
 
 jobs:
   New-Version:
