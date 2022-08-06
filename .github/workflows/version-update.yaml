@@ -18,7 +18,7 @@ jobs:
       - name: Commit from runner to repository
         run: |
           #echo $PWD
-          git add src/htlfc/VERSION
+          git add .
           git config user.name "Workflow: version-update.yaml"
           git config user.email "<>"
           git commit -m "Rewrite VERSION with last commit"
