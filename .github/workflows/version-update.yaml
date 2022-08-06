@@ -1,4 +1,5 @@
 name: Version Update
+# Rewrite src/htlfc/VERSION with incremental value
 on: [push, workflow_dispatch]
 
 jobs:
@@ -7,12 +8,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-           fetch-depth: 0
+           fetch-depth: 0    # get tags as well
       - name: Rewrite VERSION
         run: |
           cd ${{ github.workspace }}/src/htlfc
-          cat VERSION
+          #cat VERSION
           vers=$(git describe)
-          echo "Git version is $vers "
+          #echo "Git version is $vers "
           echo $vers > VERSION
-          cat VERSION
+          #cat VERSION
+
+      - name: Commit from runner to repository
+        run: |
+          git add VERSION
+          git config user.name "Workflow: version-update.yaml"
+          git config user.email "<>"
+          git commit -m "Rewrite VERSION with last commit"
+          git push origin master
