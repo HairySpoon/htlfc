@@ -34,7 +34,6 @@ jobs:
       - name: Create and push tag
         run: |
           vers=$(cat ${{ github.workspace }}/src/htlfc/VERSION)
-          echo "will add this version: $vers"
-          echo git tag -a $vers
-          #git push --tags
+          git tag -a $vers
+          git push --tags
 
