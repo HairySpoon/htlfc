@@ -1,5 +1,4 @@
 name: Version Update
-###### This is a Work in Progress #######
 on: [push, workflow_dispatch]
 
 jobs:
@@ -8,16 +7,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-           fetch-depth: 0       
-      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Goto VERSION Directory
+           fetch-depth: 0
+      - name: Rewrite VERSION
         run: |
-          cd ${{ github.workspace }}
-          ls -l
-          cd src/htlfc
+          cd ${{ github.workspace }}/src/htlfc
           cat VERSION
-      - name: Get Version String
-        run: |
           vers=$(git describe)
           echo "Git version is $vers "
-          
+          echo $vers > VERSION
+          cat VERSION
