@@ -1,10 +1,11 @@
-name: Tag and Release
+# Create a tag and write it's string to VERSION file
+name: Tag a Version
 on: 
   workflow_dispatch:
     inputs:
       vers_str:
         type: string
-        description: "The semantic version string for this release"
+        description: "The semantic version string for this tag"
         required: true
 
 jobs:
@@ -25,7 +26,14 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           git add src/htlfc/VERSION
-          git config user.name "Workflow: tag-and-release.yaml"
+          git config user.name "Workflow: tag-version.yaml"
           git config user.email "<>"
           git commit -m "Rewrite VERSION with new tag"
           git push
+
+      - name: Create and push tag
+        run: |
+          cd ${{ github.workspace }}
+          git tag $vers -a
+          git push --tags
+
