@@ -18,10 +18,9 @@ jobs:
       - name: Rewrite VERSION
         run: |
           cd ${{ github.workspace }}/src/htlfc
-          echo "Version string input was ${{ github.event.inputs.vers_str }}"
+          #echo "Version string input was ${{ github.event.inputs.vers_str }}"
           vers=${{ github.event.inputs.vers_str }}
-          #echo $vers > VERSION
-          echo $vers
+          echo $vers > VERSION
 
       - name: Commit from runner to repository
         run: |
