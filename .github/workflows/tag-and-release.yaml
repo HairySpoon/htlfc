@@ -24,7 +24,8 @@ jobs:
 
       - name: Commit from runner to repository
         run: |
-          git add VERSION
+          cd ${{ github.workspace }}
+          git add src/htlfc/VERSION
           git config user.name "Workflow: tag-and-release.yaml"
           git config user.email "<>"
           git commit -m "Rewrite VERSION with new tag"
