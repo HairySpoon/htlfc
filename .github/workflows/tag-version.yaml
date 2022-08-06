@@ -5,7 +5,7 @@ on:
     inputs:
       vers_str:
         type: string
-        description: "The semantic version string for this tag"
+        description: "The semantic version string for this tag - include leading 'v'"
         required: true
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
 
       - name: Create and push tag
         run: |
-          cd ${{ github.workspace }}
+          vers=$(cat ${{ github.workspace }}/src/htlfc/VERSION)
           echo "will add this version: $vers"
           echo git tag -a $vers
           #git push --tags
