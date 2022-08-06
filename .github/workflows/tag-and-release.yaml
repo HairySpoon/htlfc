@@ -19,7 +19,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/src/htlfc
           echo "Version string input was ${{ github.event.inputs.vers_str }}"
-          vers= ${{ github.event.inputs.vers_str }}
+          vers=${{ github.event.inputs.vers_str }}
           #echo $vers > VERSION
           echo $vers
 
