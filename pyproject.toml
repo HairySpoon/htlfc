@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "htlfc"
 description = "Hypertext Legacy File Converter"
-readme = "docs/Banner.md"
+readme = "src/htlfc/ABOUT.md"
 requires-python = ">=3.6"
 keywords = [ "hypertext", "html", "mht", "maff" ]
 license = { text="AGPLv3+" }
@@ -33,7 +33,7 @@ where = ["src"]
 include = ["htlfc*"]
 
 [tool.setuptools.package-data]
-htlfc = ["VERSION"]
+htlfc = ["VERSION","ABOUT.md"]
 
 [tool.setuptools.dynamic]
 version = { file = ["src/htlfc/VERSION"] }
