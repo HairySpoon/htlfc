@@ -27,6 +27,7 @@ dynamic = ["version"]
 
 [project.scripts]
 htlfc = "htlfc:run_htlfc"
+htlfc-b = "htlfc:run_htlfc_b"
 
 [tool.setuptools.packages.find]
 where = ["src"]

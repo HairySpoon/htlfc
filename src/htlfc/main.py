@@ -12,6 +12,25 @@ from htlfc.merger import convert
 from htlfc.gui import viewer
 from htlfc.gui import interface
 
+def call_browser():
+    """An alternative entry point for use by file manager 
+    when .maff .mht or .war are associated with htlfc-b
+    File is unpacked and converted then sent to browser.
+    """
+    filename = sys.argv[1] # assumed that file manager has provided
+                           # just one argument.
+    source = loader.unpack(filename)
+    if source is None:
+        sys.exit(1)
+    # convert
+    target = convert.convert(source)
+    # write to temporary file
+    outfile = os.path.join(source.tempdir.name,"converted.html")
+    with open(outfile,'w') as fp:
+        target.write_file(fp)
+    # browser with outfile
+    viewer.launch_browser(None,outfile)
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--pause' ,action='store_true'
