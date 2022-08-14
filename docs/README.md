@@ -42,14 +42,19 @@ Useful command line options:
 
 >`-p | --pause` - examine the input after unpack.
 
+>`-v | --version` - report latest release plus any recent commits.
+
 ### Browser
 To examine the unpacked `infile` with the default browser of your operating system:
 
 >`$ htlfc --browser infile`
 
->`$ htlfc -b infile`
+>`$ htlfc -b infile` - examine result of pass 1, the unpacked files.
 
-Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc -b` and each of the supported file types. When opening one of these files through your file manager, HTLFC will launch your browser with the unpacked file.
+>`$ htlfc-b infile` - examine result of pass 2, the converted file.
+
+
+Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc-b` and each of the supported file types. When opening one of these files through a file manager, HTLFC will launch your browser with the unpacked file.
 
 ### Graphical User Interface
 Select your input and output files through a graphical dialogue:
@@ -60,8 +65,8 @@ Select your input and output files through a graphical dialogue:
 
 This interface offers an assisted workflow whereby HTLFC will look for all files under a specified directory.  Then, for each file found, the user may:
 
-  * examine the unpacked file in default browser,
-  * examine result of conversion also in browser,
+  * examine the unpacked pass 1 files in default browser,
+  * examine pass 2 conversion also in browser,
   * convert the input and save output to new file,
   * optionally delete the input file,
   * copy the input file's timestamp to the output.
