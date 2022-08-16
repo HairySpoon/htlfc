@@ -78,7 +78,7 @@ If you intend to launch HTLFC by clicking on a `.maff`, `.mht` or `.war` file, i
 * Windows and MacOS users can create this association through File Manager or right-click and "Open With".
 * Operating systems that follow the Freedesktop specification require an update to their MIME database. Read on.
 
-From the GitHub repository (or your local copy if you used the Manual Method), visit the `mime` sub-directory and copy the `.xml` files to one of:
+From the GitHub repository (or your local copy if you used the Manual Method), visit the `share/mime` sub-directory and copy the `.xml` files to one of:
 
 * `~/.local/share/mime/packages`  - for a specific user
 * `/usr/share/mime/packages/`  - system wide.

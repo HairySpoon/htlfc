@@ -3,7 +3,7 @@
 Hypertext Legacy File Converter "HTLFC" converts the following file types into a single `.html` file:
 
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
-* `.mht` - MIME Hypertext.
+* `.mht|.mhtml` - MIME Hypertext.
 * `.war` - Web ARchive as produced by the KDE Konqueror web browser (other sources of `.war` files have not been tested).
 * `file+dir` - web page saved as *filename*.html plus *filename_files/* directory (the native "Save As" format provided by Firefox and Chrome).
 
@@ -24,6 +24,7 @@ The user may examine the unpacked content between passes.  Use either `--pause` 
 ### Known Limitations
 Nested iframes can only be in-lined two levels deep. The first level is enclosed in double quotes ( " ) within this, the second level is enclosed in single quotes ( ' ). Should a file contain a third level, an error will be reported without generating any output. This does not apply when using the browser to examine the first pass.
 
+Sometimes having been unpacked, a file will not render properly, however after conversion, the resulting `.html` is correct. It is likely that the web page ran a script which created a run time environment - this environment is missing from the unpacked material resulting in errors. Upon conversion, all available resources are in-lined regardless of missing environment variables. If a file association is used to launch HTLFC, then the `htlfc-b` front end is recommended (described below).
 
 ## Usage
 These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's environment, it may be necessary to include the full path to the executable.

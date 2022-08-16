@@ -3,7 +3,7 @@
 `htlfc` converts the following file types into a single `.html` file:
 
 * `.maff` - Mozilla Archive File Format, as produced by the Firefox extension of the same name.
-* `.mht` - MIME Hypertext.
+* `.mht|.mhtml` - MIME Hypertext.
 * `.war` - Web ARchive as produced by the KDE Konqueror web browser.
 * `file+dir` - web page having been saved as *filename*.html plus *filename_files/* (the native "Save As" format provided by Firefox and Chrome).
 
