@@ -1,5 +1,14 @@
 # Installation
-Hypertext Legacy File Converter "HTLFC" is a Python 3 application, it may be installed either manually or through `pip3`. The least complicated option is to install directly from GitHub using pip3 - described a bit further down.
+Hypertext Legacy File Converter "HTLFC" is a Python 3 application. 
+HTLFC is listed on PyPI so it may be installed with `pip3`. 
+However, if you intend to create a file association and your operating system follows the Freedesktop specification, it will be necessary to obtain `mime` files directly from the repository.
+
+## PyPI Installation
+To install HTLFC from PyPI ...
+
+`# pip3 install htlfc`
+
+The entry points `htlfc` and `htflc-b` should now be available in your executable path.
 
 ## Manual Method
 Use this method to download and test HTLFC without a permanent installation. This is relevant for software development and in addition, it also provides a copy of the documentation and mime files.
@@ -24,12 +33,12 @@ If any of the above fail, install the missing modules, either through your Opera
 Complete one of the following:
 
 #### ZIP File
-From the HTLFC repository on GitHub, pull down the options under the **Code** button and select *Download ZIP*.  Unzip the result to a working directory on your computer.
+From the HTLFC repository on GitHub, pull down the options under the **Code** button and select *Download ZIP*.  Unzip the result to a working directory.
 
 #### GIT Clone
 Ensure that `git` is installed in your Operating System.
 
-Create a working directory on your computer; then clone the repository:
+Create a working directory on your computer and from there, clone the repository:
 
     $ git clone https://github.com/HairySpoon/htlfc.git
 
@@ -48,11 +57,12 @@ To continue your evaluation of HTLFC, try any of the following:
 ## PIP Method
 Use this method to install HTLFC into your operating system.  Pip will also install the entry points `htlfc` and `htlfc-b` in your executable path.
 
+### Prerequisite
 Ensure that `pip3` version 18.1 or later is installed:
 
     $ pip3 -V
 
-With super user privileges, `pip3` will install to a system directory. If without, then to the user's home directory, for example `~/.local/bin`
+With administrator (super user) privileges, `pip3` will install to a system directory. If without, then to the user's home directory, for example `~/.local/bin`
 
 ### From Local Repository
 If you followed the manual method above, HTLFC can be installed from the working directory (not `src`) as follows:
@@ -75,10 +85,10 @@ User documentation consists of the `README.md` file in the GitHub repository.
 ## File Association
 If you intend to launch HTLFC by clicking on a `.maff`, `.mht` or `.war` file, it will be necessary to create an association between these types and `htlfc-b`. This will convert the selected file on the fly and chain to your default browser.
 
-* Windows and MacOS users can create this association through File Manager or right-click and "Open With".
-* Operating systems that follow the Freedesktop specification require an update to their MIME database. Read on.
+* Windows and MacOS users can create this association through *File Manager* or right-click and "Open With".
+* Operating systems which follow the Freedesktop specification require an update to their MIME database. Read on.
 
-From the GitHub repository (or your local copy if you used the Manual Method), visit the `share/mime` sub-directory and copy the `.xml` files to one of:
+From the GitHub repository (or your local copy if you used the Manual Method), visit the `share/mime` sub-directory and copy the `.xml` files into any `$XDG_DATA_DIRS` on your system, for example:
 
 * `~/.local/share/mime/packages`  - for a specific user
 * `/usr/share/mime/packages/`  - system wide.
