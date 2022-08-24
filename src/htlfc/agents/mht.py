@@ -75,11 +75,13 @@ class mht_agent():
         #print(f"Fixed {found} of {files}")
 
     def __fix_file(self,thisfile):
+        modified = False
         with open(thisfile,'rb') as infile:
             instr = infile.read()
+        if len(instr) == 0:
+            return modified
         encoding = chardet.detect(instr)['encoding']
         content = instr.decode(encoding)
-        modified = False
         for datapath,filepath in self.manifest.items() :
             filename = os.path.basename(filepath)
             if content.count(datapath):
