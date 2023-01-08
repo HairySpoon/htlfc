@@ -31,6 +31,7 @@ def make(source):
     # Scrape .html and .css for references to local files
     re_href = re.compile('^href="(.*?)"',flags=re.IGNORECASE)
     re_src = re.compile('^src="(.*?)"',flags=re.IGNORECASE)
+    re_bkg = re.compile('^background="(.*?)"',flags=re.IGNORECASE)
     re_url = re.compile('^url[(](.*?)[)]',flags=re.IGNORECASE)
     for dirpath, dirx, files in source.walk():
         for thisfile in files:
@@ -43,6 +44,10 @@ def make(source):
                     url = item.split('"')[1]
                     _pathfinder(url,dirpath)
                 items = filter(re_src.match,content)
+                for item in items:
+                    url = item.split('"')[1]
+                    _pathfinder(url,dirpath)
+                items = filter(re_bkg.match,content)
                 for item in items:
                     url = item.split('"')[1]
                     _pathfinder(url,dirpath)

@@ -93,7 +93,7 @@ class ET():
                   element.text = element.text.replace(pattern,newtext)
                   count += 1
 
-        # looking for url("itemname") in tag <style>
+        # looking for tag <style> with text url("itemname")
         pattern = 'url("{}")'.format(datapath)
         tag='.//*style' # XPath for a tag
         for _,etree in self.forest:
@@ -126,6 +126,13 @@ class ET():
                         continue # defer until merge_iframes()
                     else:
                         element.attrib['src'] = self.__file2uri(filepath)
+
+                # looking for attribute background="datapath"
+                src = element.attrib.get('background')
+                if src == datapath:
+                    print("Bingo",datapath)
+                    newtext = self.__file2uri(filepath)
+                    element.attrib['background'] = newtext
 
                 # looking for url(datapath) in the attribute style
                 if element.attrib.get('style'):
