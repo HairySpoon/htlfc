@@ -3,10 +3,11 @@
 
 import os.path
 import lxml.etree
-import chardet
 import io
 import mimetypes
 import base64
+
+from htlfc.agents import utility
 
 class ET():
     """Upon init, convert the primary HTML into an element tree (ET)
@@ -21,13 +22,13 @@ class ET():
     """
     def __init__(self, filepath):
         self.forest = list() # of (filepath,etree)
-        with open(filepath,'rb') as infile:
-            instr = infile.read()
-        instr_enc = chardet.detect(instr)
-        self.encoding = instr_enc['encoding']
-        instr = instr.decode(self.encoding)
         self.parser = lxml.etree.HTMLParser()
-        etree = lxml.etree.parse(io.StringIO(instr),self.parser)
+        print("OnD2...") #################
+        content,self.encoding = utility.get_html(filepath)
+        if content is None:
+            raise RuntimeError(f"Unable to read: {filepath}")
+        else:
+            etree = lxml.etree.parse(io.StringIO(content),self.parser)
         self.forest.append((filepath,etree))
 
     def find_iframes(self,manifest):
@@ -56,11 +57,12 @@ class ET():
                     if path == datapath:
                         for filepath1,_ in self.forest :
                             if filepath == filepath1 : continue # duplicate
-                        with open(filepath,'rb') as infile:
-                            instr = infile.read()
-                        instr = instr.decode(self.encoding)
-                        instr = instr.replace('&quot;','"')
-                        new_etree = lxml.etree.parse(io.StringIO(instr),self.parser)
+                        print("OnD3...") ######################
+                        content,self.encoding = utility.get_html(filepath)
+                        if content is None:
+                            raise RuntimeError(f"Unable to read: {filepath}")
+                        else:
+                            new_etree = lxml.etree.parse(io.StringIO(content),self.parser)
                         self.forest.append((filepath,new_etree))
                         _find_a_frame(new_etree ,depth+1) # recurse
             return
@@ -161,7 +163,7 @@ class ET():
         """Helper function to convert any document
         at filepath into text
         """
-        fp = open(filepath, encoding = self.encoding, mode = 'r')
+        fp = open(filepath, mode = 'r')
         text = fp.read()
         return text
 

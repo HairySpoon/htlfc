@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Build source.manifest and source.frames"""  
 import os
-import chardet
 import re
 import urllib.parse
+
+from htlfc.agents import utility
 
 def make(source):
     """Use source.walk() to identify datapath and filepath
@@ -34,10 +35,10 @@ def make(source):
     for dirpath, dirx, files in source.walk():
         for thisfile in files:
             if thisfile.endswith(('.shtml','.html','.htm','.css')):
-                with open(os.path.join(dirpath,thisfile),'rb') as infile:
-                    content = infile.read()
-                enc = chardet.detect(content)['encoding']
-                content = content.decode(enc).replace('&quot;','"').split()
+                print("OnD1...",dirpath,thisfile) ################
+                content,_ = utility.get_html(os.path.join(dirpath,thisfile))
+                if content is None: continue
+                content = content.split() # now a list of strings
                 items = filter(re_href.match,content)
                 for item in items:
                     url = item.split('"')[1]

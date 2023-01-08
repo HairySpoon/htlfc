@@ -3,8 +3,9 @@
 import os
 import email
 import tempfile
-import re
 import chardet
+
+from htlfc.agents import utility
 
 class mht_agent():
     def __init__(self, filename: str):
@@ -75,13 +76,12 @@ class mht_agent():
         #print(f"Fixed {found} of {files}")
 
     def __fix_file(self,thisfile):
+        """Read, modify and write thisfile"""
         modified = False
-        with open(thisfile,'rb') as infile:
-            instr = infile.read()
-        if len(instr) == 0:
+        print("OnD4...") ###############
+        content,_ = utility.get_html(thisfile)
+        if content is None:
             return modified
-        encoding = chardet.detect(instr)['encoding']
-        content = instr.decode(encoding)
         for datapath,filepath in self.manifest.items() :
             filename = os.path.basename(filepath)
             if content.count(datapath):
