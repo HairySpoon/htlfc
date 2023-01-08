@@ -23,7 +23,6 @@ class ET():
     def __init__(self, filepath):
         self.forest = list() # of (filepath,etree)
         self.parser = lxml.etree.HTMLParser()
-        print("OnD2...") #################
         content,self.encoding = utility.get_html(filepath)
         if content is None:
             raise RuntimeError(f"Unable to read: {filepath}")
@@ -57,7 +56,6 @@ class ET():
                     if path == datapath:
                         for filepath1,_ in self.forest :
                             if filepath == filepath1 : continue # duplicate
-                        print("OnD3...") ######################
                         content,self.encoding = utility.get_html(filepath)
                         if content is None:
                             raise RuntimeError(f"Unable to read: {filepath}")
@@ -163,7 +161,7 @@ class ET():
         """Helper function to convert any document
         at filepath into text
         """
-        fp = open(filepath, mode = 'r')
+        fp = open(filepath, encoding=self.encoding ,mode = 'r')
         text = fp.read()
         return text
 

@@ -35,7 +35,6 @@ def make(source):
     for dirpath, dirx, files in source.walk():
         for thisfile in files:
             if thisfile.endswith(('.shtml','.html','.htm','.css')):
-                print("OnD1...",dirpath,thisfile) ################
                 content,_ = utility.get_html(os.path.join(dirpath,thisfile))
                 if content is None: continue
                 content = content.split() # now a list of strings
