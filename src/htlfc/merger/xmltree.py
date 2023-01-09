@@ -130,7 +130,6 @@ class ET():
                 # looking for attribute background="datapath"
                 src = element.attrib.get('background')
                 if src == datapath:
-                    print("Bingo",datapath)
                     newtext = self.__file2uri(filepath)
                     element.attrib['background'] = newtext
 
