@@ -65,8 +65,7 @@ def converter(frame):
             return None
         try:
             outfile = entOutfile.get()
-            with open(outfile,'w') as fp:
-                target.write_file(fp)
+            target.write_file(outfile)
         except:
             messagebox.showerror('Error',"Unable to write output file.")
             return None

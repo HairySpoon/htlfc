@@ -26,8 +26,7 @@ def call_browser():
     target = convert.convert(source)
     # write to temporary file
     outfile = os.path.join(source.tempdir.name,"converted.html")
-    with open(outfile,'w') as fp:
-        target.write_file(fp)
+    target.write_file(outfile)
     # browser with outfile
     viewer.launch_browser(None,outfile)
 

@@ -78,8 +78,7 @@ def viewer(frame):
         else:
             target = convert.convert(source) # conversion
             tempname = tempfile.NamedTemporaryFile().name
-            with open(tempname,'w') as fp:
-                target.write_file(fp)
+            target.write_file(tempname)
             launch_browser(None,tempname)
         return
     btn3 = tk.Button(frame
