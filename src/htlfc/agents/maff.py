@@ -45,12 +45,7 @@ class maff_agent():
     """
 
     def walk(self):
-        """ A wrapper around os.walk() which pre-appends the primary
-        html file to the generator """
-        if len(self.basedir) == 0:
-            yield ('.', [], [self.indexfile])
-        else:
-            yield (self.basedir, [], [self.indexfile])
+        """ A wrapper around os.walk() """
         for dirpath, dirx, files in os.walk(self.basedir):
             yield (dirpath, dirx, files)
         return
