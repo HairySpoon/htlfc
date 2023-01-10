@@ -130,15 +130,7 @@ def main():
     # Output
     if mode == 'file':
         target = convert.convert(source) # conversion
-        try:
-            fp = open(outfile,'w')
-        except:
-            print(f"File {outfile} cannot be opened for writing")
-            sys.exit(1)
-        else:
-            target.write_file(fp)
-            fp.close()
-        del target
+        target.write_file(outfile)
 
     # Cleanup (force temp directory delete)
     del source

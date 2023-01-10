@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Helper function for reading files"""
-import os
+"""Helper function to both read and decode files"""
 import re
 import chardet
 
-def get_html(filename):
+def get_text(filename):
     """Open filename, determine it's encoding and decode
     filename:str = path to file
     return@success (content,encoding)
@@ -24,7 +23,7 @@ def get_html(filename):
     for item in items:
         try:
             found = item.decode().lower()
-            content = raw_str.decode(found)
+            content = raw_str.decode(encoding=found)
             encoding = found
             break
         except UnicodeDecodeError:

@@ -4,7 +4,7 @@ import os
 import re
 import urllib.parse
 
-from htlfc.agents import utility
+from htlfc.agents import codecs
 
 def make(source):
     """Use source.walk() to identify datapath and filepath
@@ -36,7 +36,7 @@ def make(source):
     for dirpath, dirx, files in source.walk():
         for thisfile in files:
             if thisfile.endswith(('.shtml','.html','.htm','.css')):
-                content,_ = utility.get_html(os.path.join(dirpath,thisfile))
+                content,_ = codecs.get_text(os.path.join(dirpath,thisfile))
                 if content is None: continue
                 content = content.split() # now a list of strings
                 items = filter(re_href.match,content)

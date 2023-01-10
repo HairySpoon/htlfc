@@ -5,7 +5,7 @@ import email
 import tempfile
 import chardet
 
-from htlfc.agents import utility
+from htlfc.agents import codecs
 
 class mht_agent():
     def __init__(self, filename: str):
@@ -78,8 +78,7 @@ class mht_agent():
     def __fix_file(self,thisfile):
         """Read, modify and write thisfile"""
         modified = False
-        print("OnD4...") ###############
-        content,_ = utility.get_html(thisfile)
+        content,_ = codecs.get_text(thisfile)
         if content is None:
             return modified
         for datapath,filepath in self.manifest.items() :

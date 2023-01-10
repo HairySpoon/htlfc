@@ -7,7 +7,7 @@ import io
 import mimetypes
 import base64
 
-from htlfc.agents import utility
+from htlfc.agents import codecs
 
 class ET():
     """Upon init, convert the primary HTML into an element tree (ET)
@@ -23,7 +23,7 @@ class ET():
     def __init__(self, filepath):
         self.forest = list() # of (filepath,etree)
         self.parser = lxml.etree.HTMLParser()
-        content,self.encoding = utility.get_html(filepath)
+        content,self.encoding = codecs.get_text(filepath)
         if content is None:
             raise RuntimeError(f"Unable to read: {filepath}")
         else:
@@ -56,7 +56,7 @@ class ET():
                     if path == datapath:
                         for filepath1,_ in self.forest :
                             if filepath == filepath1 : continue # duplicate
-                        content,self.encoding = utility.get_html(filepath)
+                        content,_ = codecs.get_text(filepath)
                         if content is None:
                             raise RuntimeError(f"Unable to read: {filepath}")
                         else:
@@ -160,15 +160,14 @@ class ET():
        fp = open(filepath,'rb')
        data = fp.read()
        encoded = base64.b64encode(data)
-       uri.append(encoded.decode(self.encoding))
+       uri.append(encoded.decode("utf-8"))
        return ''.join(uri)
 
     def __file2text(self,filepath):
         """Helper function to convert any document
         at filepath into text
         """
-        fp = open(filepath, encoding=self.encoding ,mode = 'r')
-        text = fp.read()
+        text,_ = codecs.get_text(filepath)
         return text
 
     def merge_iframes(self):
@@ -230,14 +229,14 @@ class ET():
                     del element1.attrib['src']
                     element1.set('srcdoc',frame_text1)
 
-    def write_file(self,fp):
+    def write_file(self,filepath):
         """Serialize the Etree
-        fp = file object
+        filepath:str = path to output file
         """
         _,etree = self.forest[0]
         result = lxml.etree.tostring(etree,
                                      encoding = self.encoding, 
                                      method = 'html')
-        result = result.decode(self.encoding)
-        fp.write(result)
+        with open(filepath,'wb') as fp:
+            fp.write(result)
 
