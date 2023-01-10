@@ -74,14 +74,17 @@ class ET():
         """Look for included styles and replace with in-line text"""
         count = 0
 
-        # looking for attribute href="datapath"
+        # looking for attribute href="datapath" when used with a style sheet
         attribute = './/*[@href="{}"]'.format(datapath) # XPath for an attribute
         for _,etree,_ in self.forest:
           for element in etree.findall(attribute):
-              element.clear()
-              element.tag = 'style'
-              element.text = self.__file2text(filepath)
-              count += 1
+              if 'rel' in element.attrib \
+              and element.attrib['rel'] == 'stylesheet':
+                  element.attrib.pop('href')
+                  element.attrib.pop('rel')
+                  element.tag = 'style' # possibly was 'link'
+                  element.text = self.__file2text(filepath)
+                  count += 1
 
         # looking for tag style with text "import url()"
         pattern = '@import url("{}");'.format(datapath)
