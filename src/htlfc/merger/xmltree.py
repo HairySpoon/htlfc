@@ -23,12 +23,20 @@ class ET():
     def __init__(self, filepath):
         self.forest = list() # of (filepath,etree)
         self.parser = lxml.etree.HTMLParser()
+        self.__new_tree(filepath)
+
+    def __new_tree(self,filepath):
+        """Decode and parse html file. Append to self.forest
+        filepath:str
+        return@success etree
+        """
         content,self.encoding = codecs.get_text(filepath)
         if content is None:
             raise RuntimeError(f"Unable to read: {filepath}")
         else:
             etree = lxml.etree.parse(io.StringIO(content),self.parser)
         self.forest.append((filepath,etree))
+        return etree
 
     def find_iframes(self,manifest):
         """Search for frames in manifest
@@ -40,8 +48,6 @@ class ET():
             extension = os.path.splitext(filepath)[1].lower()
             if extension in ['.htm','.html','.shtml'] :
                 self.frames.update({datapath:filepath})
-                #print(f"found iframe: filepath={filepath}")
-                #print(f"            : datapath={datapath[:60]}")
 
         def _find_a_frame(etree,depth):
             """Search for frames at this level, if found:
@@ -56,12 +62,7 @@ class ET():
                     if path == datapath:
                         for filepath1,_ in self.forest :
                             if filepath == filepath1 : continue # duplicate
-                        content,_ = codecs.get_text(filepath)
-                        if content is None:
-                            raise RuntimeError(f"Unable to read: {filepath}")
-                        else:
-                            new_etree = lxml.etree.parse(io.StringIO(content),self.parser)
-                        self.forest.append((filepath,new_etree))
+                        new_etree = self.__new_tree(filepath)
                         _find_a_frame(new_etree ,depth+1) # recurse
             return
 
