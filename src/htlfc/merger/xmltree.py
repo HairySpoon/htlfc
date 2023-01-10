@@ -123,7 +123,7 @@ class ET():
                 src = element.attrib.get('src')
                 if src == datapath:
                     # src=script becomes text of the element
-                    if element.tag == 'script' :
+                    if element.tag == 'script':
                         element.text = self.__file2uri(filepath)
                         del element.attrib['src']
                     elif element.tag == 'iframe':
@@ -152,20 +152,20 @@ class ET():
                         element.text = element.text.replace(pattern,newtext)
 
     def __file2uri(self,filepath):
-       """Helper function to convert a file at filepath
-       into its text representation
-       """
-       uri = ['data:']
-       mimetype,_ = mimetypes.guess_type(filepath, strict = False)
-       # when the extension is missing, mimetypes will fail
-       if mimetype is None: mimetype = 'application/octet-stream'
-       uri.append(mimetype)
-       uri.append(";base64,")
-       fp = open(filepath,'rb')
-       data = fp.read()
-       encoded = base64.b64encode(data)
-       uri.append(encoded.decode("utf-8"))
-       return ''.join(uri)
+        """Helper function to convert a file at filepath
+        into its text representation
+        """
+        uri = ['data:']
+        mimetype,_ = mimetypes.guess_type(filepath, strict = False)
+        # when the extension is missing, mimetypes will fail
+        if mimetype is None: mimetype = 'application/octet-stream'
+        uri.append(mimetype)
+        uri.append(";base64,")
+        fp = open(filepath,'rb')
+        data = fp.read()
+        encoded = base64.b64encode(data)
+        uri.append(encoded.decode("utf-8"))
+        return ''.join(uri)
 
     def __file2text(self,filepath):
         """Helper function to convert any document
