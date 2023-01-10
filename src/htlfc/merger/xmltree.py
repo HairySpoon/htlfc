@@ -21,7 +21,7 @@ class ET():
         write_file()    write the ET back to a file
     """
     def __init__(self, filepath):
-        self.forest = list() # of (filepath,etree)
+        self.forest = list() # of (filepath,etree,encoding)
         self.parser = lxml.etree.HTMLParser()
         self.__new_tree(filepath)
 
@@ -30,12 +30,12 @@ class ET():
         filepath:str
         return@success etree
         """
-        content,self.encoding = codecs.get_text(filepath)
+        content,encoding = codecs.get_text(filepath)
         if content is None:
             raise RuntimeError(f"Unable to read: {filepath}")
         else:
             etree = lxml.etree.parse(io.StringIO(content),self.parser)
-        self.forest.append((filepath,etree))
+        self.forest.append((filepath,etree,encoding))
         return etree
 
     def find_iframes(self,manifest):
@@ -60,14 +60,14 @@ class ET():
                 if path is None: continue
                 for datapath,filepath in self.frames.items():
                     if path == datapath:
-                        for filepath1,_ in self.forest :
+                        for filepath1,_,_ in self.forest :
                             if filepath == filepath1 : continue # duplicate
                         new_etree = self.__new_tree(filepath)
                         _find_a_frame(new_etree ,depth+1) # recurse
             return
 
         # add frames for primary etree and recurse for every file that is added
-        _,primary = self.forest[0]
+        _,primary,_ = self.forest[0]
         _find_a_frame(primary,0)
 
     def cascade(self,datapath,filepath):
@@ -76,7 +76,7 @@ class ET():
 
         # looking for attribute href="datapath"
         attribute = './/*[@href="{}"]'.format(datapath) # XPath for an attribute
-        for _,etree in self.forest:
+        for _,etree,_ in self.forest:
           for element in etree.findall(attribute):
               element.clear()
               element.tag = 'style'
@@ -86,7 +86,7 @@ class ET():
         # looking for tag style with text "import url()"
         pattern = '@import url("{}");'.format(datapath)
         tag = './/*style' # XPath for a tag
-        for _,etree in self.forest:
+        for _,etree,_ in self.forest:
           for element in etree.findall(tag):
               if element.text is None : continue
               if element.text.find(pattern) > 0 :
@@ -97,7 +97,7 @@ class ET():
         # looking for tag <style> with text url("itemname")
         pattern = 'url("{}")'.format(datapath)
         tag='.//*style' # XPath for a tag
-        for _,etree in self.forest:
+        for _,etree,_ in self.forest:
           for element in etree.findall(tag):
               if element.text is None : continue
               if element.text.find(pattern) > 0 :
@@ -114,7 +114,7 @@ class ET():
         patterns =     ['url({})'.format(datapath)]
         patterns.append('url("{}")'.format(datapath))
 
-        for _,etree in self.forest:
+        for _,etree,_ in self.forest:
             for element in etree.iter():
                 # looking for attribute src="datapath"
                 src = element.attrib.get('src')
@@ -173,7 +173,7 @@ class ET():
 
     def merge_iframes(self):
         """Reduce all etrees to one"""
-        _,tree = self.forest[0] # primary etree
+        _,tree,encoding = self.forest[0] # primary etree
         tag = './/*iframe' # XPath for a tag
 
         # Looking for level 1 iframes...
@@ -184,7 +184,7 @@ class ET():
                 target1 = self.frames[datapath1]
             else: continue
             # ignore [0] because it is the primary etree...
-            for filepath1,etree1 in self.forest[1:]:
+            for filepath1,etree1,encoding1 in self.forest[1:]:
                 if filepath1 == target1:
 
                     # Looking for level 2 iframes...
@@ -194,7 +194,7 @@ class ET():
                         if datapath2 in self.frames:
                             target2 = self.frames[datapath2]
                         else: continue
-                        for filepath2,etree2 in self.forest[1:]:
+                        for filepath2,etree2,encoding2 in self.forest[1:]:
                             if filepath2 == target2:
 
                                 # Looking for level 3 iframes...
@@ -204,15 +204,15 @@ class ET():
                                     if datapath3 in self.frames:
                                         target3 = self.frames[datapath3]
                                     else: continue
-                                    for filepath3,etree3 in self.forest[1:]:
+                                    for filepath3,etree3,encoding3 in self.forest[1:]:
                                         if filepath3 == target3:
                                             raise RuntimeError("Level three iframe was found but is not supported")
 
                                 # Found level 2 iframe...
                                 frame_text2 = lxml.etree.tostring(etree2,
-                                                        encoding = self.encoding,
+                                                        encoding = encoding2,
                                                         method = 'html')
-                                frame_text2 = frame_text2.decode(self.encoding)
+                                frame_text2 = frame_text2.decode(encoding2)
                                 # Merge into tree
                                 # replace src="..path.."
                                 # with    srcdoc='..inline..' (single quotes)
@@ -221,9 +221,9 @@ class ET():
 
                     # Found level 1 iframe...
                     frame_text1 = lxml.etree.tostring(etree1,
-                                            encoding = self.encoding,
+                                            encoding = encoding1,
                                             method = 'html')
-                    frame_text1 = frame_text1.decode(self.encoding)
+                    frame_text1 = frame_text1.decode(encoding1)
                     # Merge into tree
                     # replace src="..path.."
                     # with srcdoc="..inline.." (double quotes)
@@ -234,10 +234,14 @@ class ET():
         """Serialize the Etree
         filepath:str = path to output file
         """
-        _,etree = self.forest[0]
-        result = lxml.etree.tostring(etree,
-                                     encoding = self.encoding, 
-                                     method = 'html')
+        _,etree,encoding = self.forest[0]
+        if encoding is None:
+            result = lxml.etree.tostring(etree,
+                                         method = 'html')
+        else:
+            result = lxml.etree.tostring(etree,
+                                         encoding = encoding,
+                                         method = 'html')
         with open(filepath,'wb') as fp:
             fp.write(result)
 

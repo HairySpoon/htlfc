@@ -8,7 +8,8 @@ def get_text(filename):
     filename:str = path to file
     return@success (content,encoding)
         content:str = decoded content of filename
-        encoding:str = detected character set
+        encoding:str iff explicit (as defined in the meta tag)
+                     or None
     return@failure (None,None) = empty file
     """
     with open(filename,'rb') as infile:
@@ -32,8 +33,9 @@ def get_text(filename):
     if encoding is None:
         # detect encoding with chardet
         try:
-            encoding = chardet.detect(raw_str)['encoding']
-            content = raw_str.decode(encoding)
+            found = chardet.detect(raw_str)['encoding']
+            content = raw_str.decode(found)
+            encoding = None
         except UnicodeDecodeError:
             content=None ; encoding = None
 
