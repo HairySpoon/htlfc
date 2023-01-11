@@ -15,20 +15,14 @@ from htlfc.gui import interface
 def call_browser():
     """An alternative entry point for use by file manager 
     when .maff .mht or .war are associated with htlfc-b
-    File is unpacked and converted then sent to browser.
+    File is unpacked then sent to browser.
     """
     filename = sys.argv[1] # assumed that file manager has provided
                            # just one argument.
     source = loader.unpack(filename)
     if source is None:
         sys.exit(1)
-    # convert
-    target = convert.convert(source)
-    # write to temporary file
-    outfile = os.path.join(source.tempdir.name,"converted.html")
-    target.write_file(outfile)
-    # browser with outfile
-    viewer.launch_browser(None,outfile)
+    viewer.launch_browser(source,None)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -42,11 +36,11 @@ def main():
                        ,help = 'Print version number and exit.')
 
     browser = parser.add_argument_group(
-              "Convert and open in browser (requires infile)")
+              "Unpack (no conversion) then open in browser (requires infile).")
     browser.add_argument('-b' ,'--browser' ,action='store_true')
 
     graphic  = parser.add_argument_group(
-              "Open a graphical interface for parameters")
+              "Graphical interface for assisted file selection and workflow.")
     graphic.add_argument('-g' ,'--gui' ,action='store_true')
 
     args = parser.parse_args()
@@ -120,7 +114,7 @@ def main():
 
     # Browser
     if mode == 'browser':
-        viewer.launch_browser(source,infile)
+        viewer.launch_browser(source,None)
 
     # Examine tempdir
     if args.pause :
