@@ -208,12 +208,16 @@ class ET():
                                     for filepath3,etree3,encoding3 in self.forest[1:]:
                                         if filepath3 == target3:
                                             raise RuntimeError("Level three iframe was found but is not supported")
-
                                 # Found level 2 iframe...
-                                frame_text2 = lxml.etree.tostring(etree2,
-                                                        encoding = encoding2,
-                                                        method = 'html')
-                                frame_text2 = frame_text2.decode(encoding2)
+                                if encoding2 is None:
+                                    frame_text2 = lxml.etree.tostring(etree2
+                                                  ,method = 'html')
+                                    frame_text2 = frame_text2.decode()
+                                else:
+                                    frame_text2 = lxml.etree.tostring(etree2
+                                                  ,encoding = encoding2
+                                                  ,method = 'html')
+                                    frame_text2 = frame_text2.decode(encoding2)
                                 # Merge into tree
                                 # replace src="..path.."
                                 # with    srcdoc='..inline..' (single quotes)
@@ -221,10 +225,15 @@ class ET():
                                 element2.set('srcdoc',frame_text2)
 
                     # Found level 1 iframe...
-                    frame_text1 = lxml.etree.tostring(etree1,
-                                            encoding = encoding1,
-                                            method = 'html')
-                    frame_text1 = frame_text1.decode(encoding1)
+                    if encoding1 is None:
+                        frame_text1 = lxml.etree.tostring(etree1
+                                      ,method = 'html')
+                        frame_text1 = frame_text1.decode()
+                    else:
+                        frame_text1 = lxml.etree.tostring(etree1
+                                      ,encoding = encoding1
+                                      ,method = 'html')
+                        frame_text1 = frame_text1.decode(encoding1)
                     # Merge into tree
                     # replace src="..path.."
                     # with srcdoc="..inline.." (double quotes)
@@ -236,13 +245,10 @@ class ET():
         filepath:str = path to output file
         """
         _,etree,encoding = self.forest[0]
-        if encoding is None:
-            result = lxml.etree.tostring(etree,
-                                         method = 'html')
-        else:
-            result = lxml.etree.tostring(etree,
-                                         encoding = encoding,
-                                         method = 'html')
+        kwargs = { 'method':'html' } # args for tostring()
+        if encoding is not None:
+            kwargs['encoding'] = encoding
+        result = lxml.etree.tostring(etree,**kwargs)
         with open(filepath,'wb') as fp:
             fp.write(result)
 
