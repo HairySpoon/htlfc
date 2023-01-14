@@ -30,9 +30,10 @@ class ET():
         filepath:str
         return@success etree
         """
-        content,encoding = codecs.get_text(filepath)
-        if content is None:
-            raise RuntimeError(f"Unable to read: {filepath}")
+        try:
+            content,encoding = codecs.get_text(filepath)
+        except EOFError as err:
+            raise RuntimeError(f"File is empty: {filepath}")
         else:
             etree = lxml.etree.parse(io.StringIO(content),self.parser)
         self.forest.append((filepath,etree,encoding))

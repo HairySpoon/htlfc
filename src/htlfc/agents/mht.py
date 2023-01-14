@@ -78,8 +78,9 @@ class mht_agent():
     def __fix_file(self,thisfile):
         """Read, modify and write thisfile"""
         modified = False
-        content,_ = codecs.get_text(thisfile)
-        if content is None:
+        try:
+            content,_ = codecs.get_text(thisfile)
+        except EOFError as err:
             return modified
         for datapath,filepath in self.manifest.items() :
             filename = os.path.basename(filepath)

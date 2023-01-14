@@ -16,7 +16,7 @@ def get_text(filename):
     with open(filename,'rb') as infile:
         raw_str = infile.read()
     if len(raw_str) == 0:
-        raise EOFError(f"File is empty: {infile}")
+        raise EOFError(f"File is empty: {filename}")
 
     # look for "charset=word" in the meta tag (word includes - and _)
     re_charset = re.compile(b'<meta.*charset=([\w\-_]+).*>' ,flags=re.IGNORECASE)
