@@ -169,7 +169,10 @@ class ET():
         """Helper function to convert any document
         at filepath into text
         """
-        text,_ = codecs.get_text(filepath)
+        try:
+            text,_ = codecs.get_text(filepath)
+        except EOFError as err:
+            raise RuntimeError(err)
         return text
 
     def merge_iframes(self):

@@ -31,6 +31,8 @@ def unpack(filename):
     try:
         agent = mapping.get(ext, lambda: 'nothing')
         source = agent(filename)
+    except EOFError:
+        pass
     except TypeError as err:
         raise RuntimeError(f"Input rejected: {err}")
     except Exception as err:

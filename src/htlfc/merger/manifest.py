@@ -36,8 +36,10 @@ def make(source):
     for dirpath, dirx, files in source.walk():
         for thisfile in files:
             if thisfile.endswith(('.shtml','.html','.htm','.css')):
-                content,_ = codecs.get_text(os.path.join(dirpath,thisfile))
-                if content is None: continue
+                try:
+                    content,_ = codecs.get_text(os.path.join(dirpath,thisfile))
+                except EOFError:
+                    continue
                 content = content.split() # now a list of strings
                 items = filter(re_href.match,content)
                 for item in items:

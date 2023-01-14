@@ -10,12 +10,13 @@ def get_text(filename):
         content:str = decoded content of filename
         encoding:str iff explicit (as defined in the meta tag)
                      or None
-    return@failure (None,None) = empty file
+    exception:
+        EOFError = file is empty
     """
     with open(filename,'rb') as infile:
         raw_str = infile.read()
     if len(raw_str) == 0:
-        return (None,None)
+        raise EOFError(f"File is empty: {infile}")
 
     # look for "charset=word" in the meta tag (word includes - and _)
     re_charset = re.compile(b'<meta.*charset=([\w\-_]+).*>' ,flags=re.IGNORECASE)
@@ -37,7 +38,7 @@ def get_text(filename):
             content = raw_str.decode(found)
             encoding = None
         except UnicodeDecodeError:
-            content=None ; encoding = None
+            raise RuntimeError(f"Unable to detect character set and decode file: {infile}")
 
     if content is not None:
         content = content.replace('&quot;','"')

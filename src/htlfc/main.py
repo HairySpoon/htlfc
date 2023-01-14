@@ -108,8 +108,11 @@ def main():
         
     # Load File
     if mode == 'file' or mode == 'browser':
-        source = loader.unpack(infile)
-        if source is None:
+        try:
+            source = loader.unpack(infile)
+        except RuntimeError as err:
+            print(f"Error unpacking file: {infile}")
+            print(err)
             sys.exit(1)
 
     # Browser
@@ -122,7 +125,12 @@ def main():
 
     # Output
     if mode == 'file':
-        target = convert.convert(source) # conversion
+        try:
+            target = convert.convert(source) # conversion
+        except RuntimeError as err:
+            print(f"Error converting file: {infile}")
+            print(err)
+            sys.exit(1)
         target.write_file(outfile)
 
     # Cleanup (force temp directory delete)
