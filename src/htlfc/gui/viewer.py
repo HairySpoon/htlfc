@@ -76,7 +76,11 @@ def viewer(frame):
             messagebox.showerror('Error',f"Unable to unpack file {filepath}")
             reset()
         else:
-            target = convert.convert(source) # conversion
+            try:
+                target = convert.convert(source) # conversion
+            except RuntimeError as err:
+                messagebox.showerror('Error',f"Error during conversion {err}")
+                return
             tempname = tempfile.NamedTemporaryFile().name
             target.write_file(tempname)
             launch_browser(None,tempname)
