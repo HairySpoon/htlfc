@@ -8,7 +8,12 @@ from htlfc.merger.xmltree import ET
 def convert(source):
     """Convert source into xml element tree and supervise conversion
     source = file agent object
+    return@success = (content,warnings)
+        content:etree = based on source
+        warnings = list of warning:str
     """
+    warnings = list() # errors (if any) from cascade() and substitute()
+
     # Create Element Tree object
     indexhtml = source.indexfile
     content = ET(indexhtml)
@@ -23,7 +28,10 @@ def convert(source):
         for datapath,filepath in source.manifest.items() :
             extension = os.path.splitext(filepath)[1].lower()
             if extension in ['.css','.htm','.html','.shtml']:
-                count += content.cascade(datapath,filepath)
+                (_count,_warnings) = content.cascade(datapath,filepath)
+                count += _count
+                if len(_warnings) > 0:
+                    warnings.append(_warnings)
         modified = count>0 # eventually count=0, then exit loop
 
     # Add everything else except CSS and iframes
@@ -32,10 +40,12 @@ def convert(source):
             continue # ignore top level html
         if filepath.lower().endswith('.css'):
             continue
-        content.substitute(datapath,filepath) # which ignores iframes
+        _warnings = content.substitute(datapath,filepath) # which ignores iframes
+        if len(_warnings) > 0:
+            warnings.append(_warnings)
 
     # Wrap iframes into the primary etree
     content.merge_iframes()
 
-    return content
+    return (content,warnings)
 

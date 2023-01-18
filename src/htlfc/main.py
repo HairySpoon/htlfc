@@ -126,7 +126,8 @@ def main():
     # Output
     if mode == 'file':
         try:
-            target = convert.convert(source) # conversion
+            (target,warnings) = convert.convert(source) # conversion
+            # TODO do something with warnings #############################33
         except RuntimeError as err:
             print(f"Error converting file: {infile}")
             print(err)

@@ -72,7 +72,15 @@ class ET():
         _find_a_frame(primary,0)
 
     def cascade(self,datapath,filepath):
-        """Look for included styles and replace with in-line text"""
+        """Look for included styles and replace with in-line text
+        datapath:str = path to a style object as it appears within the HTML
+        filepath:str = path to a style object in local storage
+        return@success (count,warnings)
+            count:int = how many matches were found and replaced
+            warnings:list of warning, if none then empty list
+                warning:str = message due to failure to convert object at filepath
+        """
+        warnings = list()
         count = 0
 
         # looking for attribute href="datapath" when used with stylesheet
@@ -107,12 +115,17 @@ class ET():
                   element.text = element.text.replace(pattern,newtext)
                   count += 1
 
-        return count
+        return (count,warnings)
 
     def substitute(self,datapath,filepath):
-        """Search for item at datapath and
-        replace with uri created from the file at filepath
+        """Look for included objects and replace with uri
+        datapath:str = path to an object as it appears within the HTML
+        filepath:str = path to an object in local storage, to be converted to text
+        return@success : warnings
+            warnings:list of warning, if none then empty list
+                warning:str = message due to failure to convert object at filepath
         """
+        warnings = list()
         patterns =     ['url({})'.format(datapath)]
         patterns.append('url("{}")'.format(datapath))
 
@@ -149,6 +162,8 @@ class ET():
                     if element.text.find(pattern) > 0 :
                         newtext = 'url({})'.format(self.__file2uri(filepath))
                         element.text = element.text.replace(pattern,newtext)
+
+        return warnings
 
     def __file2uri(self,filepath):
         """Helper function to convert a file at filepath
