@@ -77,11 +77,12 @@ def viewer(frame):
             reset()
         else:
             try:
-                (target,warnigs) = convert.convert(source) # conversion
+                (target,warnings) = convert.convert(source) # conversion
+                for warning in warnings:
+                    messagebox.showwarning('Excluded from output!',warning)
             except RuntimeError as err:
                 messagebox.showerror('Error',f"Error during conversion {err}")
                 return
-            # TODO do something with warnings ############################################
             tempname = tempfile.NamedTemporaryFile().name
             target.write_file(tempname)
             launch_browser(None,tempname)

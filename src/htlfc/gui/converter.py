@@ -59,7 +59,9 @@ def converter(frame):
             btn2.config(state=DISABLED)
             return None
         try:
-            target = convert.convert(source) # conversion
+            (target,warnings) = convert.convert(source) # conversion
+            for warning in warnings:
+                messagebox.showwarning('Excluded from output!',warning)
         except:
             messagebox.showerror('Error',"Conversion failed.")
             return None

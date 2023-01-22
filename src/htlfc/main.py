@@ -111,8 +111,8 @@ def main():
         try:
             source = loader.unpack(infile)
         except RuntimeError as err:
-            print(f"Error unpacking file: {infile}")
-            print(err)
+            print(f"Error unpacking file: {infile}",file=sys.stderr)
+            print(err,file=sys.stderr)
             sys.exit(1)
 
     # Browser
@@ -127,12 +127,15 @@ def main():
     if mode == 'file':
         try:
             (target,warnings) = convert.convert(source) # conversion
-            # TODO do something with warnings #############################33
+            if len(warnings) != 0:
+                print(f"WARNING: The following were excluded from {outfile}",file=sys.stderr)
+                for warning in warnings:
+                    print(warning,file=sys.stderr)
         except RuntimeError as err:
-            print(f"Error converting file: {infile}")
-            print(err)
-            sys.exit(1)
-        target.write_file(outfile)
+            print(f"Error converting file: {infile}",file=sys.stderr)
+            print(err,file=sys.stderr)
+        else:
+            target.write_file(outfile)
 
     # Cleanup (force temp directory delete)
     del source

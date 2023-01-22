@@ -28,10 +28,10 @@ def convert(source):
         for datapath,filepath in source.manifest.items() :
             extension = os.path.splitext(filepath)[1].lower()
             if extension in ['.css','.htm','.html','.shtml']:
-                (_count,_warnings) = content.cascade(datapath,filepath)
-                count += _count
-                if len(_warnings) > 0:
-                    warnings.append(_warnings)
+                try:
+                    count += content.cascade(datapath,filepath)
+                except RuntimeWarning as err:
+                    warnings.append(err)
         modified = count>0 # eventually count=0, then exit loop
 
     # Add everything else except CSS and iframes
@@ -40,8 +40,9 @@ def convert(source):
             continue # ignore top level html
         if filepath.lower().endswith('.css'):
             continue
-        _warnings = content.substitute(datapath,filepath) # which ignores iframes
-        if len(_warnings) > 0:
+        try:
+            content.substitute(datapath,filepath) # which ignores iframes
+        except RuntimeWarning as err:
             warnings.append(_warnings)
 
     # Wrap iframes into the primary etree

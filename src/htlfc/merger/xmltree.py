@@ -75,12 +75,9 @@ class ET():
         """Look for included styles and replace with in-line text
         datapath:str = path to a style object as it appears within the HTML
         filepath:str = path to a style object in local storage
-        return@success (count,warnings)
+        return@success = count
             count:int = how many matches were found and replaced
-            warnings:list of warning, if none then empty list
-                warning:str = message due to failure to convert object at filepath
         """
-        warnings = list()
         count = 0
 
         # looking for attribute href="datapath" when used with stylesheet
@@ -90,7 +87,8 @@ class ET():
               if filepath.lower().endswith('.css'):
                   element.attrib.pop('href')
                   element.tag = 'style' # may have been 'link'
-                  element.text = self.__file2text(filepath)
+                  newtext = self.__file2text(filepath)
+                  element.text = newtext
                   count += 1
 
         # looking for tag style with text "import url()"
@@ -115,7 +113,7 @@ class ET():
                   element.text = element.text.replace(pattern,newtext)
                   count += 1
 
-        return (count,warnings)
+        return count
 
     def substitute(self,datapath,filepath):
         """Look for included objects and replace with uri
@@ -168,27 +166,35 @@ class ET():
     def __file2uri(self,filepath):
         """Helper function to convert a file at filepath
         into its text representation
+        Exceptions are converted to RuntimeWarning
         """
+        if os.path.getsize(filepath) == 0:
+            raise RuntimeWarning(f"File is empty: {filepath}")
         uri = ['data:']
         mimetype,_ = mimetypes.guess_type(filepath, strict = False)
         # when the extension is missing, mimetypes will fail
         if mimetype is None: mimetype = 'application/octet-stream'
         uri.append(mimetype)
         uri.append(";base64,")
-        fp = open(filepath,'rb')
-        data = fp.read()
-        encoded = base64.b64encode(data)
-        uri.append(encoded.decode("utf-8"))
+        try:
+            with open(filepath,'rb') as fp:
+                data = fp.read()
+                encoded = base64.b64encode(data)
+        except Exception as err:
+            raise RuntimeWarning(f"b64encode error {err} | from: {filepath}")
+        else:
+            uri.append(encoded.decode("utf-8"))
         return ''.join(uri)
 
     def __file2text(self,filepath):
         """Helper function to convert any document
         at filepath into text
+        Exceptions are converted to RuntimeWarning
         """
-        try:
-            text,_ = codecs.get_text(filepath)
-        except EOFError as err:
-            raise RuntimeError(err)
+        if os.path.getsize(filepath) == 0:
+            filename = os.path.basename(filepath)
+            raise RuntimeWarning(f"File is empty: {filename}")
+        text,_ = codecs.get_text(filepath)
         return text
 
     def merge_iframes(self):
