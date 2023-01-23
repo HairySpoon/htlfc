@@ -6,6 +6,7 @@ import lxml.etree
 import io
 import mimetypes
 import base64
+import html
 import importlib.resources
 
 from htlfc.agents import codecs
@@ -94,6 +95,7 @@ class ET():
                 info_text = ""
             if 'timestamp' in metadata:
                 info_text += f" {metadata['timestamp']}"
+            info_text = html.escape(info_text) # eg symbols like "&"
             info = lxml.etree.fromstring(f'<div class="info_bar">{info_text}</div>')
             body.insert(0,info)
 

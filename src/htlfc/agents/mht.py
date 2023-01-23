@@ -13,6 +13,7 @@ class mht_agent():
         self.tempdir = tempfile.TemporaryDirectory()
         self.basedir = self.tempdir.name
         self.filename = filename
+        self.metadata = dict()
         infile = open(self.filename, 'rb')
         try:
             data = email.message_from_binary_file(infile)
@@ -23,12 +24,14 @@ class mht_agent():
             infile.close()
         self.indexfile = '' # resolved during First Pass
         self.manifest = dict() # {"datapath":"filepath"}
+        if 'Date' in data:
+            self.metadata['timestamp'] = data['Date']
 
         # First Pass
         counter = 1
         for part in data.walk():
-            # multipart/* are just containers
-            if part.get_content_maintype() == 'multipart': continue
+            if part.get_content_maintype() == 'multipart':
+                continue # multipart/* are just containers
             datapath = part.get('Content-Location')
             file_type = part.get_content_subtype()
             filename = 'part-%04d.%s' % (counter,file_type)
@@ -36,8 +39,9 @@ class mht_agent():
             filepath = os.path.join(self.basedir ,filename)
             with open(filepath, 'wb') as fp:
                 fp.write(part.get_payload(decode = True))
-            if len(self.indexfile) == 0:
-                self.indexfile = filepath # first part is always the main html
+            if len(self.indexfile) == 0: # first part is the main html
+                self.indexfile = filepath
+                self.metadata['url'] = datapath
             self.manifest.update({datapath:filepath})
 
     def walk(self):

@@ -36,11 +36,11 @@ def main():
                        ,help = 'Print version number and exit.')
 
     browser = parser.add_argument_group(
-              "Unpack (no conversion) then open in browser (requires infile).")
+              "Unpack (no conversion) then open in browser (requires infile)")
     browser.add_argument('-b' ,'--browser' ,action='store_true')
 
     graphic  = parser.add_argument_group(
-              "Graphical interface for assisted file selection and workflow.")
+              "Graphical interface for assisted file selection and workflow")
     graphic.add_argument('-g' ,'--gui' ,action='store_true')
 
     args = parser.parse_args()
