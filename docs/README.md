@@ -52,8 +52,7 @@ To examine the unpacked `infile` with the default browser of your operating syst
 
 >`$ htlfc -b infile` - examine result of pass 1, the unpacked files.
 
->`$ htlfc-b infile` - examine result of pass 2, the converted file.
-
+>`$ htlfc-b infile` - as above ...
 
 Hint: rather than permanently converting your archived hypertext files, create a file association between `htlfc-b` and each of the supported file types. When opening one of these files through a file manager, HTLFC will launch your browser with the unpacked file.
 
