@@ -24,7 +24,7 @@ The user may examine the unpacked content between passes.  Use either `--pause` 
 ### Known Limitations
 Nested iframes can only be in-lined two levels deep. The first level is enclosed in double quotes ( " ) within this, the second level is enclosed in single quotes ( ' ). Should a file contain a third level, an error will be reported without generating any output. This does not apply when using the browser to examine the first pass.
 
-Sometimes having been unpacked, a file will not render properly, however after conversion, the resulting `.html` is correct. It is likely that the web page ran a script which created a run time environment - this environment is missing from the unpacked material resulting in errors. Upon conversion, all available resources are in-lined regardless of missing environment variables. If a file association is used to launch HTLFC, then the `htlfc-b` front end is recommended (described below).
+Sometimes having been unpacked, a file will not render properly, however after conversion, the resulting `.html` is correct. It is likely that the web page ran a script which created a run time environment - this environment is missing from the unpacked material resulting in errors. Upon conversion, all available resources are in-lined regardless of missing environment variables. The GUI option may be used to examine the unpacked and converted versions one at a time.
 
 ## Usage
 These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's environment, it may be necessary to include the full path to the executable.
