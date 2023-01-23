@@ -47,7 +47,7 @@ def convert(source):
         try:
             content.substitute(datapath,filepath) # which ignores iframes
         except RuntimeWarning as err:
-            warnings.append(_warnings)
+            warnings.append(err)
 
     # Wrap iframes into the primary etree
     content.merge_iframes()
