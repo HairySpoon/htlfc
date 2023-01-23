@@ -3,6 +3,7 @@
 import os
 import tempfile
 import zipfile
+import re
 
 class maff_agent():
 
@@ -35,6 +36,23 @@ class maff_agent():
 
         self.basedir = os.path.join(tempdirpath,root)
         self.indexfile = os.path.join(self.basedir,'index.html')
+
+        # Metadata
+        self.metadata = dict()
+        rdf_file = os.path.join(self.basedir,'index.rdf')
+        re_resource = re.compile('RDF:resource="(.*?)"')
+        with open(rdf_file,'r') as fp:
+            for line in fp.readlines():
+                if "archivetime" in line:
+                    resource = re_resource.search(line)
+                    if resource is not None:
+                        text = resource.group().split('"')[1]
+                        self.metadata["timestamp"] = text
+                if "originalurl" in line:
+                    resource = re_resource.search(line)
+                    if resource is not None:
+                        text = resource.group().split('"')[1]
+                        self.metadata["url"] = text
 
     """
     There exist (at least) two variants of maff files:

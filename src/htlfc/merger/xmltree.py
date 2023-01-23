@@ -6,6 +6,7 @@ import lxml.etree
 import io
 import mimetypes
 import base64
+import importlib.resources
 
 from htlfc.agents import codecs
 
@@ -70,6 +71,31 @@ class ET():
         # add frames for primary etree and recurse for every file that is added
         _,primary,_ = self.forest[0]
         _find_a_frame(primary,0)
+
+    def add_info_bar(self,metadata):
+        """Add an info bar across the top of page
+        metadata:dict
+            metadata['timestamp']:str
+            metadata['url']:str
+        """
+        head = self.forest[0][1].find("head")
+        if head is None: # add <head> element to root
+            root = self.forest[0][1].getroot()
+            head = lxml.etree.fromstring('<head/>')
+            root.insert(0,head)
+        with importlib.resources.open_text("merger", "infobar.css") as fp:
+            info_css = lxml.etree.fromstring(fp.read())
+        head.append(info_css)
+        body = self.forest[0][1].find("body")
+        if body is not None:
+            if 'url' in metadata:
+                info_text = f"[{metadata['url']}]"
+            else:
+                info_text = ""
+            if 'timestamp' in metadata:
+                info_text += f" {metadata['timestamp']}"
+            info = lxml.etree.fromstring(f'<div class="info_bar">{info_text}</div>')
+            body.insert(0,info)
 
     def cascade(self,datapath,filepath):
         """Look for included styles and replace with in-line text

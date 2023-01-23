@@ -1,0 +1,11 @@
+<!-- This file contains free and unencumbered software released into
+the public domain.  License in accordance with http://unlicense.org/
+-->
+<style> /* Included by htlfc.py */
+    div.info_bar {
+        top: 0;
+        background-color: #05c0fa;
+        padding: 5px;
+        font-size: 12px;
+    }
+</style>

@@ -6,3 +6,6 @@ HTLFC is file conversion software that could be used to provide Software as a Se
 
 ## Intent
 AGPLv3 has been applied to HTLFC, not to discourage provision through SaaS, but to reveal to the end user, that an option exists to acquire and run the application directly.
+
+## Exception
+The file at src/htlfc/merger/infobar.css is unlicensed so that it may be merged into the output with no encumberance to the user.

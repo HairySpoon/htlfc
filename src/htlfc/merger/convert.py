@@ -21,6 +21,10 @@ def convert(source):
     # Detect iframes
     content.find_iframes(source.manifest)
 
+    # Add meta data if it exists
+    if hasattr(source,"metadata") and len(source.metadata) > 0:
+        content.add_info_bar(source.metadata)
+
     # Keep adding frames and CSS until cascade no longer finds anything
     modified = True
     while modified:

@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 name = "htlfc"
 description = "Hypertext Legacy File Converter"
 readme = "src/htlfc/ABOUT.md"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 keywords = [ "hypertext", "html", "mht", "mhtml", "maff" ]
 license = { text="AGPLv3+" }
 classifiers =[
