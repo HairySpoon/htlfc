@@ -84,7 +84,7 @@ class ET():
             root = self.forest[0][1].getroot()
             head = lxml.etree.fromstring('<head/>')
             root.insert(0,head)
-        with importlib.resources.open_text("merger", "infobar.css") as fp:
+        with importlib.resources.open_text("htlfc.merger", "infobar.css") as fp:
             info_css = lxml.etree.fromstring(fp.read())
         head.append(info_css)
         body = self.forest[0][1].find("body")

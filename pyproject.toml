@@ -34,7 +34,7 @@ where = ["src"]
 include = ["htlfc*"]
 
 [tool.setuptools.package-data]
-htlfc = ["VERSION","ABOUT.md"]
+htlfc = ["VERSION","ABOUT.md","merger/infobar.css"]
 
 [tool.setuptools.dynamic]
 version = { file = ["src/htlfc/VERSION"] }
