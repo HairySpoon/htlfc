@@ -13,6 +13,8 @@ The original use case for HTLFC emerged when Mozilla discontinued their legacy A
 
 Obviously HTLFC may also be used to open and/or convert hypertext files from other sources.
 
+When opening the `file+dir` combination, the associated directory should be *filename_word/* where *_word* would be `_files` from a source configured for English. Supporting non-English source material, HTLFC will search for a *filename* directory suffixed by an underscore followed by an alphabetic string.
+
 ## Principle of Operation
 HTLFC makes two passes:
 
@@ -22,9 +24,11 @@ HTLFC makes two passes:
 The user may examine the unpacked content between passes.  Use either `--pause` option from the command line, or select "Unpack and  Open Browser" from the graphical interface.
 
 ### Known Limitations
-Nested iframes can only be in-lined two levels deep. The first level is enclosed in double quotes ( " ) within this, the second level is enclosed in single quotes ( ' ). Should a file contain a third level, an error will be reported without generating any output. This does not apply when using the browser to examine the first pass.
+Nested iframes may only be in-lined two levels deep. When the output is written, the first level will be enclosed in double quotes ( " ) within this, the second level will be enclosed in single quotes ( ' ). Should a file contain a third level, an error will be reported without generating any output. This does not apply when using the browser to examine the first pass.
 
 Sometimes having been unpacked, a file will not render properly, however after conversion, the resulting `.html` is correct. It is likely that the web page ran a script which created a run time environment - this environment is missing from the unpacked material resulting in errors. Upon conversion, all available resources are in-lined regardless of missing environment variables. The GUI option may be used to examine the unpacked and converted versions one at a time.
+
+When presented with a filename ending in `.html` an attempt is made to locate a directory named `filename_word` on assumption that `_word` may be *_files*, however, refer to the non-English use case above. Should the working directory contain a sub-directory in the form `filename_other`, it is possible that `htlfc` will wrongly identify that directory during conversion and fail.
 
 ## Usage
 These instructions invoke HTLFC simply as `htlfc`.  Depending on the user's environment, it may be necessary to include the full path to the executable.

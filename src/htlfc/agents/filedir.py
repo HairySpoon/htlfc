@@ -9,11 +9,26 @@ class filedir_agent():
         self.filename = filename
         self.indexfile = filename # required for browser()
         self.stem,self.basename = os.path.split(filename)
-        files_dir = os.path.splitext(self.basename)[0]+'_files'
-        self.rootpath = os.path.join(self.stem,files_dir)
-        if not os.path.isdir(self.rootpath):
-            raise FileNotFoundError\
-            (f"Expected directory not found - '{self.rootpath}'")
+        if len(self.stem) == 0:
+            self.stem = "."
+        fileroot = os.path.splitext(self.basename)[0]
+        # search for a directory named like filename_word
+        # where word is "files" only when language is english
+        files_dir = None
+        with os.scandir(self.stem) as itor:
+            for entry in itor:
+                if entry.is_dir() \
+                and entry.name.startswith(fileroot+"_"):
+                    index = entry.name.rfind("_")
+                    if entry.name[:index] == fileroot \
+                    and entry.name[index+1:].isalpha():
+                        files_dir = entry.name
+                        break
+            itor.close()
+        if files_dir is None:
+            raise FileNotFoundError("Files directory not found.")
+        else:
+            self.rootpath = os.path.join(self.stem,files_dir)
 
     def walk(self):
         """ A wrapper around os.walk() which pre-appends the primary
