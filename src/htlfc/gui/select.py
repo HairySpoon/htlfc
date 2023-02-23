@@ -16,7 +16,7 @@ def select(frame):
         filename = filedialog.askopenfilename(title="Select file"
                    ,filetypes = [("legacy files",".mht .mhtml .maff .war")
                                 ,("file+dir",".html .htm")])
-        if len(filename) is 0: return
+        if len(filename) == 0: return
         if os.path.isfile(filename):
             window.filename = filename
         window.refresh()
