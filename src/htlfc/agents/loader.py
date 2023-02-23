@@ -17,6 +17,7 @@ mapping = {
     ".mhtml"   : mht_agent,
     ".war"     : war_agent,
     ".html"    : filedir_agent,
+    ".htm"     : filedir_agent,
     ".shtml"   : filedir_agent }
 
 def unpack(filename):
