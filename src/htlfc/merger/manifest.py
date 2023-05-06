@@ -21,6 +21,9 @@ def make(source):
         """
         path = urllib.parse.unquote(datapath)
         path = os.path.normpath(path) # OS specific
+        if ".html#" in path:
+            # strip fragment identifier from path
+            path = path.split("#")[0]
         for dirpath, dirx, files in os.walk(base):
           for thisfile in files:
               fullpath = os.path.join(dirpath,thisfile)
