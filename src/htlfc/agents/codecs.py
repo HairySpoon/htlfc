@@ -10,8 +10,9 @@ def get_text(filename):
         content:str = decoded content of filename
         encoding:str iff explicit (as defined in the meta tag)
                      or None
-    exception:
+    exceptions:
         EOFError = file is empty
+        RuntimeError("Unable to detect character set and decode file: {infile}")
     """
     with open(filename,'rb') as infile:
         raw_str = infile.read()
@@ -22,6 +23,7 @@ def get_text(filename):
     re_charset = re.compile(b'<meta.*charset=([\w\-_]+).*>' ,flags=re.IGNORECASE)
     items = re_charset.findall(raw_str)
     encoding = None
+    content = None
     for item in items:
         try:
             found = item.decode().lower()
@@ -31,14 +33,17 @@ def get_text(filename):
         except UnicodeDecodeError:
             continue
 
-    if encoding is None:
+    if content is None:
         # detect encoding with chardet
         try:
             found = chardet.detect(raw_str)['encoding']
             content = raw_str.decode(found)
-            encoding = None
         except UnicodeDecodeError:
-            raise RuntimeError(f"Unable to detect character set and decode file: {infile}")
+            # if all else fails, fallback to utf-8
+            try:
+                content = raw_str.decode(encoding='utf-8')
+            except UnicodeDecodeError:
+                raise RuntimeError(f"Unable to detect character set and decode file: {infile}")
 
     if content is not None:
         content = content.replace('&quot;','"')
