@@ -41,7 +41,8 @@ class maff_agent():
         self.metadata = dict()
         rdf_file = os.path.join(self.basedir,'index.rdf')
         re_resource = re.compile('RDF:resource="(.*?)"')
-        with open(rdf_file,'r') as fp:
+        # https://stackoverflow.com/questions/49021589/
+        with open(rdf_file,'r',encoding="utf-8") as fp:
             for line in fp.readlines():
                 if "archivetime" in line:
                     resource = re_resource.search(line)
